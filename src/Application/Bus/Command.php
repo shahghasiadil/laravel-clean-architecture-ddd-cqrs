@@ -4,5 +4,4 @@ namespace Application\Bus;
 
 class Command
 {
-
 }

@@ -2,14 +2,15 @@
 
 namespace Application\Bus;
 
+use Application\Bus\Contracts\QueryBusContract;
 use Illuminate\Bus\Dispatcher;
 
 class IlluminateQueryBus implements QueryBusContract
 {
-
     public function __construct(
         protected Dispatcher $bus,
-    ) {}
+    ) {
+    }
 
     public function ask(Query $query): mixed
     {
