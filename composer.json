@@ -26,7 +26,8 @@
             "Application\\": "src/Application/",
             "Domain\\": "src/Domain/",
             "Infrastructure\\": "src/Infrastructure/",
-            "Presentation\\": "src/Presentation/"
+            "Presentation\\": "src/Presentation/",
+            "Shared\\": "src/Shared/"
         }
     },
     "autoload-dev": {
