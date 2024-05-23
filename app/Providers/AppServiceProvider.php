@@ -12,7 +12,7 @@ use Application\Queries\User\GetUserByEmailQuery;
 use Application\Queries\User\GetUserByEmailQueryHandler;
 use Domain\Repositories\UserRepositoryContract;
 use Illuminate\Support\ServiceProvider;
-use Infrastructure\Repositories\UserRepository;
+use Infrastructure\Persistence\Repositories\UserRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
