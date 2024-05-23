@@ -3,29 +3,43 @@
 namespace App\Providers;
 
 use Application\Bus\Contracts\CommandBusContract;
+use Application\Bus\Contracts\QueryBusContract;
 use Application\Bus\IlluminateCommandBus;
 use Application\Bus\IlluminateQueryBus;
-use Application\Bus\QueryBusContract;
+use Application\Commands\User\CreateUserCommand;
+use Application\Handlers\User\CommandHandlers\CreateUserCommandHandler;
+use Application\Queries\User\GetUserByEmailQuery;
+use Application\Queries\User\GetUserByEmailQueryHandler;
+use Domain\Repositories\UserRepositoryContract;
 use Illuminate\Support\ServiceProvider;
+use Infrastructure\Repositories\UserRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [];
+
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public $singletons = [
+        CommandBusContract::class => IlluminateCommandBus::class,
+        QueryBusContract::class => IlluminateQueryBus::class,
+        UserRepositoryContract::class => UserRepository::class,
+    ];
+
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        $singletons = [
-            CommandBusContract::class => IlluminateCommandBus::class,
-            QueryBusContract::class => IlluminateQueryBus::class,
-        ];
-
-        foreach ($singletons as $abstract => $concrete) {
-            $this->app->singleton(
-                $abstract,
-                $concrete,
-            );
-        }
+        //
     }
 
     /**
@@ -33,6 +47,31 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerCommandHandlers();
+        $this->registerQueryHandlers();
+    }
+
+    /**
+     * Register command handlers.
+     */
+    protected function registerCommandHandlers(): void
+    {
+        $commandBus = app(CommandBusContract::class);
+
+        $commandBus->register([
+            CreateUserCommand::class => CreateUserCommandHandler::class,
+        ]);
+    }
+
+    /**
+     * Register query handlers.
+     */
+    protected function registerQueryHandlers(): void
+    {
+        $queryBus = app(QueryBusContract::class);
+
+        $queryBus->register([
+            GetUserByEmailQuery::class => GetUserByEmailQueryHandler::class,
+        ]);
     }
 }
