@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Queries\User;
 
-use Application\Bus\Query;
+use Application\Bus\QueryHandler;
 use Domain\Repositories\UserRepositoryContract;
 
-class GetUserByEmailQueryHandler extends Query
+class GetUserByEmailQueryHandler extends QueryHandler
 {
     public function __construct(
         protected readonly UserRepositoryContract $repository,
