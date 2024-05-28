@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Infrastructure\Observers\UserObserver;
+use Domain\Observers\UserObserver;
 
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
