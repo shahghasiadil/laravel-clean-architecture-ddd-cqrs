@@ -32,4 +32,12 @@ class UserRepository implements UserRepositoryContract
     {
         return User::all();
     }
+
+    public function update(int $id, string $name, string $email): int
+    {
+        return User::query()->where('id', $id)->update([
+            'name' => $name,
+            'email' => $email,
+        ]);
+    }
 }
