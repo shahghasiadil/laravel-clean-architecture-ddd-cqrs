@@ -14,7 +14,7 @@ class UpdateUser
     public function __invoke(int $id, string $name, string $email)
     {
         return DB::transaction(function () use ($id, $name, $email) {
-           return $this->userRepository->update($id, $name, $email);
+            return $this->userRepository->update($id, $name, $email);
         });
 
     }
