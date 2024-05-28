@@ -12,4 +12,6 @@ interface UserRepositoryContract
     public function findByEmail(string $email): ?User;
 
     public function getAllUsers(): Collection;
+
+    public function update(int $id, string $name, string $email): int;
 }
