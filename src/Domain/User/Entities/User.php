@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Entities;
+namespace Domain\User\Entities;
 
-use Domain\Observers\UserObserver;
+use Domain\User\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

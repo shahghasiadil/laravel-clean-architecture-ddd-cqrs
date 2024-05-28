@@ -4,7 +4,7 @@ namespace Application\User\CommandHandlers;
 
 use Application\Bus\CommandHandler;
 use Application\User\Commands\CreateUserCommand;
-use Domain\Repositories\UserRepositoryContract;
+use Domain\User\Repositories\UserRepositoryContract;
 
 class CreateUserCommandHandler extends CommandHandler
 {

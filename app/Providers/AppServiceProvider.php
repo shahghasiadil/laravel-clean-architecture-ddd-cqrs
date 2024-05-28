@@ -10,7 +10,7 @@ use Application\User\Commands\CreateUserCommand;
 use Application\User\CommandHandlers\CreateUserCommandHandler;
 use Application\User\Queries\GetUserByEmailQuery;
 use Application\User\Queries\GetUserByEmailQueryHandler;
-use Domain\Repositories\UserRepositoryContract;
+use Domain\User\Repositories\UserRepositoryContract;
 use Illuminate\Support\ServiceProvider;
 use Infrastructure\Persistence\Repositories\UserRepository;
 

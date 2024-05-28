@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\User\Services;
 
 use Application\User\Contracts\UserServiceContract;
-use Domain\Repositories\UserRepositoryContract;
+use Domain\User\Repositories\UserRepositoryContract;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserService implements UserServiceContract

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\User\Queries;
 
 use Application\Bus\QueryHandler;
-use Domain\Repositories\UserRepositoryContract;
+use Domain\User\Repositories\UserRepositoryContract;
 
 class GetUserByEmailQueryHandler extends QueryHandler
 {

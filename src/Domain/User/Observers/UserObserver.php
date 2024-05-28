@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Observers;
+namespace Domain\User\Observers;
 
-use Domain\Entities\User;
+use Domain\User\Entities\User;
 
 class UserObserver
 {

@@ -2,7 +2,7 @@
 
 namespace Application\User\Actions;
 
-use Domain\Repositories\UserRepositoryContract;
+use Domain\User\Repositories\UserRepositoryContract;
 use Illuminate\Support\Facades\DB;
 
 class UpdateUser

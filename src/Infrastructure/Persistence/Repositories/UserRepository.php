@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Infrastructure\Persistence\Repositories;
 
-use Domain\Entities\User;
-use Domain\Repositories\UserRepositoryContract;
+use Domain\User\Entities\User;
+use Domain\User\Repositories\UserRepositoryContract;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository implements UserRepositoryContract

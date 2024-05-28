@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\Repositories;
+namespace Domain\User\Repositories;
 
-use Domain\Entities\User;
+use Domain\User\Entities\User;
 use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryContract
