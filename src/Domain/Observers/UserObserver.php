@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\Observers;
+namespace Domain\Observers;
 
 use Domain\Entities\User;
 
