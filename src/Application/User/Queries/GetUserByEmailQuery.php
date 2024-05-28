@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Queries\User;
+namespace Application\User\Queries;
 
 use Application\Bus\Query;
 

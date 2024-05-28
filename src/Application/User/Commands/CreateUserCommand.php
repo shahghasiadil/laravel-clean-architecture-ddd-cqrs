@@ -1,9 +1,9 @@
 <?php
 
-namespace Application\Commands\User;
+namespace Application\User\Commands;
 
 use Application\Bus\Command;
-use Application\DTOs\User\UserDTO;
+use Application\User\DTOs\UserDTO;
 
 class CreateUserCommand extends Command
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Application\Handlers\User\CommandHandlers;
+namespace Application\User\CommandHandlers;
 
 use Application\Bus\CommandHandler;
-use Application\Commands\User\CreateUserCommand;
+use Application\User\Commands\CreateUserCommand;
 use Domain\Repositories\UserRepositoryContract;
 
 class CreateUserCommandHandler extends CommandHandler

@@ -4,9 +4,9 @@ namespace Presentation\Controllers;
 
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
-use Application\Commands\User\CreateUserCommand;
-use Application\DTOs\User\UserDTO;
-use Application\Queries\User\GetUserByEmailQuery;
+use Application\User\Commands\CreateUserCommand;
+use Application\User\DTOs\UserDTO;
+use Application\User\Queries\GetUserByEmailQuery;
 use Presentation\Requests\UserStoreFormRequest;
 
 class UserController extends Controller
