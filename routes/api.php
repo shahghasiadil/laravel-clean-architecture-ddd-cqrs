@@ -8,4 +8,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('users', UserController::class);
+Route::controller(UserController::class)->group(function () {
+    Route::post('users/create', 'store');
+    Route::put('users/{id}/update', 'update');
+});
