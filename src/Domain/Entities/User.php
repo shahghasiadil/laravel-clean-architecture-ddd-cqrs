@@ -2,11 +2,11 @@
 
 namespace Domain\Entities;
 
+use Domain\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Domain\Observers\UserObserver;
 
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
