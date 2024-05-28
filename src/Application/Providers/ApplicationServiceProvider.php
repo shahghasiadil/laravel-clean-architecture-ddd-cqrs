@@ -16,6 +16,18 @@ use Illuminate\Support\ServiceProvider;
 
 class ApplicationServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [];
+
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
     public $singletons = [
         CommandBusContract::class => IlluminateCommandBus::class,
         QueryBusContract::class => IlluminateQueryBus::class,
@@ -24,6 +36,7 @@ class ApplicationServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->registerSingletons();
         $this->registerCommandHandlers();
         $this->registerQueryHandlers();
     }
@@ -47,5 +60,15 @@ class ApplicationServiceProvider extends ServiceProvider
         $queryBus->register([
             GetUserByEmailQuery::class => GetUserByEmailQueryHandler::class,
         ]);
+    }
+
+    /**
+     * Register the bindings specified in the singletons array.
+     */
+    protected function registerSingletons(): void
+    {
+        foreach ($this->singletons as $interface => $implementation) {
+            $this->app->singleton($interface, $implementation);
+        }
     }
 }

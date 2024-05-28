@@ -14,11 +14,23 @@ class InfrastructureServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->registerSingletons();
         // Infrastructure services registration
     }
 
     public function boot(): void
     {
         // Infrastructure-specific bootstrapping
+    }
+
+
+    /**
+     * Register the bindings specified in the singletons array.
+     */
+    protected function registerSingletons(): void
+    {
+        foreach ($this->singletons as $interface => $implementation) {
+            $this->app->singleton($interface, $implementation);
+        }
     }
 }
