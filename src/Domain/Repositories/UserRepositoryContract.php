@@ -3,6 +3,7 @@
 namespace Domain\Repositories;
 
 use Domain\Entities\User;
+use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryContract
 {
@@ -10,5 +11,5 @@ interface UserRepositoryContract
 
     public function findByEmail(string $email): ?User;
 
-    public function getAllUsers(): User;
+    public function getAllUsers(): Collection;
 }
