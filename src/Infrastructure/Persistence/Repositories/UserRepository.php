@@ -6,6 +6,7 @@ namespace Infrastructure\Persistence\Repositories;
 
 use Domain\Entities\User;
 use Domain\Repositories\UserRepositoryContract;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository implements UserRepositoryContract
 {
@@ -25,5 +26,10 @@ class UserRepository implements UserRepositoryContract
         $user = User::where('email', $email)->first();
 
         return $user ?? null;
+    }
+
+    public function getAllUsers(): Collection
+    {
+        return User::all();
     }
 }
