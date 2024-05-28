@@ -4,9 +4,11 @@ namespace Presentation\Controllers;
 
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
+use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
 use Application\User\DTOs\UserDTO;
 use Application\User\Queries\GetUserByEmailQuery;
+use Illuminate\Http\Request;
 use Presentation\Requests\UserStoreFormRequest;
 
 class UserController extends Controller
@@ -17,7 +19,7 @@ class UserController extends Controller
     ) {
     }
 
-    public function __invoke(UserStoreFormRequest $request)
+    public function store(UserStoreFormRequest $request)
     {
 
         $userDto = new UserDTO($request->safe()->name, $request->safe()->email, $request->safe()->password);
@@ -31,5 +33,10 @@ class UserController extends Controller
         );
 
         return $user;
+    }
+
+    public function update($id, Request $request, UpdateUser $updateUser)
+    {
+        return $updateUser($id, $request->name, $request->email);
     }
 }
