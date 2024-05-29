@@ -36,14 +36,14 @@ class ApplicationServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->registerSingletons();
-        $this->registerCommandHandlers();
-        $this->registerQueryHandlers();
+        // $this->registerSingletons();
+
     }
 
     public function boot(): void
     {
-        // Application-specific bootstrapping
+        $this->registerCommandHandlers();
+        $this->registerQueryHandlers();
     }
 
     protected function registerCommandHandlers(): void
@@ -60,15 +60,5 @@ class ApplicationServiceProvider extends ServiceProvider
         $queryBus->register([
             GetUserByEmailQuery::class => GetUserByEmailQueryHandler::class,
         ]);
-    }
-
-    /**
-     * Register the bindings specified in the singletons array.
-     */
-    protected function registerSingletons(): void
-    {
-        foreach ($this->singletons as $interface => $implementation) {
-            $this->app->singleton($interface, $implementation);
-        }
     }
 }
