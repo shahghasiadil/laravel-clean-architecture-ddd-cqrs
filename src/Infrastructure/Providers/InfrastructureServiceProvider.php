@@ -14,8 +14,7 @@ class InfrastructureServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->registerSingletons();
-        // Infrastructure services registration
+
     }
 
     public function boot(): void
