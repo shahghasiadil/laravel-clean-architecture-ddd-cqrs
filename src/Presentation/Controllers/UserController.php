@@ -37,6 +37,8 @@ class UserController extends Controller
 
     public function update($id, Request $request, UpdateUser $updateUser)
     {
-        return $updateUser($id, $request->name, $request->email);
+        $updateUser($id, $request->name, $request->email);
+
+        return $this->queryBus->ask(new GetUserByEmailQuery($request->email));
     }
 }
