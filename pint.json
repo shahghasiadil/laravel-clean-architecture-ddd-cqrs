@@ -19,7 +19,6 @@
       "declare_strict_types": true,
       "explicit_string_variable": true,
       "final_class": false,
-      "group_import": true,
       "fully_qualified_strict_types": {
         "import_symbols": false
       },
@@ -35,7 +34,9 @@
       "mb_str_functions": true,
       "method_chaining_indentation": true,
       "modernize_strpos": true,
-      "new_with_braces": false,
+      "new_with_braces": {
+      "anonymous_class": false
+      },
       "no_empty_comment": true,
       "not_operator_with_space": true,
       "ordered_traits": true,
