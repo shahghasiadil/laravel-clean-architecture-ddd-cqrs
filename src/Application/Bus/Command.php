@@ -1,7 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Bus;
 
-class Command
-{
-}
+class Command {}

@@ -10,8 +10,7 @@ class GetUserByEmailQuery extends Query
 {
     public function __construct(
         private readonly string $email,
-    ) {
-    }
+    ) {}
 
     public function getEmail(): string
     {

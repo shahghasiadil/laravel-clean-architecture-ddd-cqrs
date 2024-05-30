@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Bus;
 
 use Application\Bus\Contracts\CommandBusContract;
@@ -9,8 +11,7 @@ class IlluminateCommandBus implements CommandBusContract
 {
     public function __construct(
         protected Dispatcher $bus,
-    ) {
-    }
+    ) {}
 
     public function dispatch(Command $command): mixed
     {

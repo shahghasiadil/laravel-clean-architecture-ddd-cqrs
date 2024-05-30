@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Bus\Contracts;
 
 use Application\Bus\Query;

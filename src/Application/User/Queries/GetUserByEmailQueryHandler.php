@@ -11,8 +11,7 @@ class GetUserByEmailQueryHandler extends QueryHandler
 {
     public function __construct(
         protected readonly UserRepositoryContract $repository,
-    ) {
-    }
+    ) {}
 
     public function handle(GetUserByEmailQuery $query): ?object
     {

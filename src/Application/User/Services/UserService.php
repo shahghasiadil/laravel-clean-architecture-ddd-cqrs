@@ -10,10 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserService implements UserServiceContract
 {
-    public function __construct(private UserRepositoryContract $userRepository)
-    {
-
-    }
+    public function __construct(private UserRepositoryContract $userRepository) {}
 
     public function index(): Collection
     {

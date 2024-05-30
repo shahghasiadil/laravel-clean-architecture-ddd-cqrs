@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infrastructure\Providers;
 
 use Domain\User\Repositories\UserRepositoryContract;
@@ -12,10 +14,7 @@ class InfrastructureServiceProvider extends ServiceProvider
         UserRepositoryContract::class => UserRepository::class,
     ];
 
-    public function register(): void
-    {
-
-    }
+    public function register(): void {}
 
     public function boot(): void
     {

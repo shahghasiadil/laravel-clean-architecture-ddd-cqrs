@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Bus;
 
 use Application\Bus\Contracts\QueryBusContract;
@@ -9,8 +11,7 @@ class IlluminateQueryBus implements QueryBusContract
 {
     public function __construct(
         protected Dispatcher $bus,
-    ) {
-    }
+    ) {}
 
     public function ask(Query $query): mixed
     {

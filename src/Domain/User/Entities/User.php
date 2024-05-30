@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\User\Entities;
 
 use Domain\User\Observers\UserObserver;
@@ -11,7 +13,8 @@ use Illuminate\Notifications\Notifiable;
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
