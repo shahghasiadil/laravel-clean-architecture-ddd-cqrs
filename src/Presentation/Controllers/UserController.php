@@ -1,35 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Presentation\Controllers;
 
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
 use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
-use Application\User\DTOs\UserDTO;
+use Application\User\DTOs\CreateUserDTO;
 use Application\User\Queries\GetUserByEmailQuery;
 use Illuminate\Http\Request;
 use Presentation\Requests\UserStoreFormRequest;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     public function __construct(
         protected CommandBusContract $commandBus,
         protected QueryBusContract $queryBus,
-    ) {
-    }
+    ) {}
 
     public function store(UserStoreFormRequest $request)
     {
 
-        $userDto = new UserDTO($request->safe()->name, $request->safe()->email, $request->safe()->password);
+        $CreateUserDTO = new CreateUserDTO($request->safe()->name, $request->safe()->email, $request->safe()->password);
 
         $email = $this->commandBus->dispatch(
-            new CreateUserCommand($userDto),
+            new CreateUserCommand($CreateUserDTO),
         );
 
         $user = $this->queryBus->ask(
-            new GetUserByEmailQuery($email)
+            new GetUserByEmailQuery($email),
         );
 
         return $user;

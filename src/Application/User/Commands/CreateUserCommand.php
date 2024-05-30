@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\User\Commands;
 
 use Application\Bus\Command;
-use Application\User\DTOs\UserDTO;
+use Application\User\DTOs\CreateUserDTO;
 
-class CreateUserCommand extends Command
+final class CreateUserCommand extends Command
 {
     public function __construct(
-        public UserDTO $userDTO
-    ) {
-    }
+        public CreateUserDTO $CreateUserDTO,
+    ) {}
 }

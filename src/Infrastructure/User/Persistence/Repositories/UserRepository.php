@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Infrastructure\User\Persistence\Repositories;
 
+use Application\User\DTOs\CreateUserDTO;
 use Domain\User\Entities\User;
 use Domain\User\Repositories\UserRepositoryContract;
 use Illuminate\Database\Eloquent\Collection;
 
-class UserRepository implements UserRepositoryContract
+final class UserRepository implements UserRepositoryContract
 {
-    public function save(string $name, string $email, string $password): string
+    public function save(CreateUserDTO $createUserDTO): string
     {
         $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
+            'name' => $createUserDTO->name,
+            'email' => $createUserDTO->email,
+            'password' => $createUserDTO->password,
         ]);
 
         return $user->email;

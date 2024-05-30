@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\User\Repositories;
 
+use Application\User\DTOs\CreateUserDTO;
 use Domain\User\Entities\User;
 use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryContract
 {
-    public function save(string $name, string $email, string $password): string;
+    public function save(CreateUserDTO $dto): string;
 
     public function findByEmail(string $email): ?User;
 
