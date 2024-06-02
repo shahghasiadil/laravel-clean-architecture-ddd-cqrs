@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Application\User\Data;
 
-use Carbon\CarbonImmutable;
+use Carbon\Carbon;
 use Spatie\LaravelData\Data;
 
 class UsersListData extends Data
 {
     public int $id;
     public string $name;
-    public array $properties;
-    public CarbonImmutable $created_at;
-    public CarbonImmutable $updated_at;
+    public string $email;
+    public Carbon $created_at;
+    public Carbon $updated_at;
 }
