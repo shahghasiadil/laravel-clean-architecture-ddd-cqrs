@@ -9,6 +9,7 @@ use Application\Bus\Contracts\QueryBusContract;
 use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
 use Application\User\Data\UserData;
+use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
 use Domain\User\Entities\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ final class UserController extends Controller
         protected QueryBusContract $queryBus,
     ) {}
 
-    public function store(UserStoreFormRequest $request): User
+    public function store(UserStoreFormRequest $request): UsersListData
     {
 
         $userData = UserData::from($request->validated());
@@ -34,7 +35,7 @@ final class UserController extends Controller
             new GetUserByEmailQuery($email),
         );
 
-        return $user;
+        return UsersListData::from($user);
     }
 
     public function update(int $id, Request $request, UpdateUser $updateUser): User
