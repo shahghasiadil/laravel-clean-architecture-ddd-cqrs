@@ -11,7 +11,6 @@ use Application\User\Commands\CreateUserCommand;
 use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
-use Domain\User\Entities\User;
 use Illuminate\Http\Request;
 use Presentation\Requests\UserStoreFormRequest;
 
@@ -38,10 +37,12 @@ final class UserController extends Controller
         return UsersListData::from($user);
     }
 
-    public function update(int $id, Request $request, UpdateUser $updateUser): User
+    public function update(int $id, Request $request, UpdateUser $updateUser): UsersListData
     {
         $updateUser($id, $request->name, $request->email);
 
-        return $this->queryBus->ask(new GetUserByEmailQuery($request->email));
+        $user = $this->queryBus->ask(new GetUserByEmailQuery($request->email));
+
+        return UsersListData::from($user);
     }
 }
