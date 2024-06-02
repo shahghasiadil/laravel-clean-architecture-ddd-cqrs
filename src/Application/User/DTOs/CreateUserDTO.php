@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Application\User\DTOs;
 
+use Illuminate\Http\Request;
+
 final class CreateUserDTO
 {
     public function __construct(public string $name, public string $email, public string $password)
@@ -13,4 +15,17 @@ final class CreateUserDTO
         $this->password = $password;
     }
 
+    /**
+     * Converts the DTO properties to an associative array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
+    }
 }
