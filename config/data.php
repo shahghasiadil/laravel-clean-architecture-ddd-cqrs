@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Enumerable;
 
 return [
@@ -31,8 +33,8 @@ return [
      * types.
      */
     'transformers' => [
-        DateTimeInterface::class => \Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer::class,
-        \Illuminate\Contracts\Support\Arrayable::class => \Spatie\LaravelData\Transformers\ArrayableTransformer::class,
+        DateTimeInterface::class => Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer::class,
+        Illuminate\Contracts\Support\Arrayable::class => Spatie\LaravelData\Transformers\ArrayableTransformer::class,
         BackedEnum::class => Spatie\LaravelData\Transformers\EnumTransformer::class,
     ],
 
@@ -43,7 +45,7 @@ return [
     'casts' => [
         DateTimeInterface::class => Spatie\LaravelData\Casts\DateTimeInterfaceCast::class,
         BackedEnum::class => Spatie\LaravelData\Casts\EnumCast::class,
-//        Enumerable::class => Spatie\LaravelData\Casts\EnumerableCast::class,
+        //        Enumerable::class => Spatie\LaravelData\Casts\EnumerableCast::class,
     ],
 
     /**
@@ -119,7 +121,7 @@ return [
      * method. By default, only when a request is passed the data is being validated. This
      * behaviour can be changed to always validate or to completely disable validation.
      */
-    'validation_strategy' => \Spatie\LaravelData\Support\Creation\ValidationStrategy::OnlyRequests->value,
+    'validation_strategy' => Spatie\LaravelData\Support\Creation\ValidationStrategy::OnlyRequests->value,
 
     /**
      * When using an invalid include, exclude, only or except partial, the package will
@@ -143,9 +145,9 @@ return [
     'throw_when_max_transformation_depth_reached' => true,
 
     /**
-    * When using the `make:data` command, the package will use these settings to generate
-    * the data classes. You can override these settings by passing options to the command.
-    */
+     * When using the `make:data` command, the package will use these settings to generate
+     * the data classes. You can override these settings by passing options to the command.
+     */
     'commands' => [
         /**
          * Provides default configuration for the `make:data` command. These settings can be overridden with options
