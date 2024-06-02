@@ -11,7 +11,7 @@ class UpdateUser
 {
     public function __construct(private UserRepositoryContract $userRepository) {}
 
-    public function __invoke(int $id, string $name, string $email)
+    public function __invoke(int $id, string $name, string $email): int
     {
         return DB::transaction(fn() => $this->userRepository->update($id, $name, $email));
 
