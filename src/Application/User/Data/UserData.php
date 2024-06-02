@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\User\DTOs;
+namespace Application\User\Data;
 
-class UserDTO
+use Spatie\LaravelData\Data;
+
+class UserData extends Data
 {
     public function __construct(public int $id, public string $name, public string $email, public string $password)
     {
