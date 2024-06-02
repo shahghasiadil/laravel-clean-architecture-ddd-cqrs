@@ -10,6 +10,7 @@ use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
 use Application\User\DTOs\CreateUserDTO;
 use Application\User\Queries\GetUserByEmailQuery;
+use Domain\User\Entities\User;
 use Illuminate\Http\Request;
 use Presentation\Requests\UserStoreFormRequest;
 
@@ -20,10 +21,10 @@ final class UserController extends Controller
         protected QueryBusContract $queryBus,
     ) {}
 
-    public function store(UserStoreFormRequest $request)
+    public function store(UserStoreFormRequest $request): User
     {
 
-        $CreateUserDTO = new CreateUserDTO($request->safe()->name, $request->safe()->email, $request->safe()->password);
+        $CreateUserDTO = new CreateUserDTO(...$request->validated());
 
         $email = $this->commandBus->dispatch(
             new CreateUserCommand($CreateUserDTO),
@@ -36,7 +37,7 @@ final class UserController extends Controller
         return $user;
     }
 
-    public function update($id, Request $request, UpdateUser $updateUser)
+    public function update(int $id, Request $request, UpdateUser $updateUser): User
     {
         $updateUser($id, $request->name, $request->email);
 
