@@ -10,7 +10,6 @@ use Spatie\LaravelData\Optional;
 class UserData extends Data
 {
     public function __construct(
-        public int|Optional $id,
         public string $name,
         public string $email,
         public string $password,
