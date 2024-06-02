@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Application\User\DTOs;
 
-use Illuminate\Http\Request;
-
 final class CreateUserDTO
 {
     public function __construct(public string $name, public string $email, public string $password)
