@@ -8,7 +8,7 @@ use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
 use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
-use Application\User\DTOs\CreateUserDTO;
+use Application\User\Data\UserData;
 use Application\User\Queries\GetUserByEmailQuery;
 use Domain\User\Entities\User;
 use Illuminate\Http\Request;
@@ -24,10 +24,10 @@ final class UserController extends Controller
     public function store(UserStoreFormRequest $request): User
     {
 
-        $CreateUserDTO = new CreateUserDTO(...$request->validated());
+        $userData = UserData::from($request->validated());
 
         $email = $this->commandBus->dispatch(
-            new CreateUserCommand($CreateUserDTO),
+            new CreateUserCommand($userData),
         );
 
         $user = $this->queryBus->ask(
