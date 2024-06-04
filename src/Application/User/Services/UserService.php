@@ -19,7 +19,8 @@ class UserService implements UserServiceContract
         return $this->userRepository->getAllUsers();
     }
 
-    public function update($id, UserData $userData) : bool {
-    return DB::transaction(fn() => $this->userRepository->update($id, $userData));
+    public function update($id, UserData $userData): bool
+    {
+        return DB::transaction(fn() => $this->userRepository->update($id, $userData));
     }
 }

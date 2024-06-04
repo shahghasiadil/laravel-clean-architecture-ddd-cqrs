@@ -6,7 +6,6 @@ namespace Presentation\Controllers;
 
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
-use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
 use Application\User\Contracts\UserServiceContract;
 use Application\User\Data\UserData;
@@ -20,7 +19,7 @@ final class UserController extends Controller
     public function __construct(
         protected CommandBusContract $commandBus,
         protected QueryBusContract $queryBus,
-        protected UserServiceContract $userService
+        protected UserServiceContract $userService,
     ) {}
 
     public function store(UserStoreFormRequest $request): UsersListData
