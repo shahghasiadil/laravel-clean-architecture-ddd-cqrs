@@ -30,7 +30,7 @@ final class UserRepository implements UserRepositoryContract
         return User::all();
     }
 
-    public function update(int $id, UserData $data): int
+    public function update(int $id, UserData $data): bool
     {
         $user = User::findOrFail($id);
         return $user->update($data->all());
