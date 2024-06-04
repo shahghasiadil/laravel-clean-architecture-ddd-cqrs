@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shared\Enums\Traits;
+namespace Shared\Traits;
 
 trait EnumValues
 {
