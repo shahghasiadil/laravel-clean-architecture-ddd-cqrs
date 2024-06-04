@@ -13,7 +13,7 @@ final class UserRepository implements UserRepositoryContract
 {
     public function save(UserData $data): string
     {
-        $user = User::create($data);
+        $user = User::create($data->all());
 
         return $user->email;
     }
