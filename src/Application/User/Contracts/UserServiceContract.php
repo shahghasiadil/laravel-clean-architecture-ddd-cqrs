@@ -11,5 +11,5 @@ interface UserServiceContract
 {
     public function index(): Collection;
 
- public function update($id, UserData $userData) : int;
+ public function update($id, UserData $userData) : bool;
 }
