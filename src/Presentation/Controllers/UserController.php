@@ -8,6 +8,7 @@ use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
 use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
+use Application\User\Contracts\UserServiceContract;
 use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
@@ -19,6 +20,7 @@ final class UserController extends Controller
     public function __construct(
         protected CommandBusContract $commandBus,
         protected QueryBusContract $queryBus,
+        protected UserServiceContract $userService
     ) {}
 
     public function store(UserStoreFormRequest $request): UsersListData
@@ -37,9 +39,11 @@ final class UserController extends Controller
         return UsersListData::from($user);
     }
 
-    public function update(int $id, Request $request, UpdateUser $updateUser): UsersListData
+    public function update(int $id, Request $request): UsersListData
     {
-        $updateUser($id, $request->name, $request->email);
+        $userData = UserData::from($request->all());
+
+        $this->userService->update($id, $userData);
 
         $user = $this->queryBus->ask(new GetUserByEmailQuery($request->email));
 
