@@ -13,7 +13,7 @@ final class UserRepository implements UserRepositoryContract
 {
     public function save(UserData $data): string
     {
-        $user = User::create($data);
+        $user = User::create($data->all());
 
         return $user->email;
     }
@@ -30,11 +30,9 @@ final class UserRepository implements UserRepositoryContract
         return User::all();
     }
 
-    public function update(int $id, string $name, string $email): int
+    public function update(int $id, UserData $data): bool
     {
-        return User::query()->where('id', $id)->update([
-            'name' => $name,
-            'email' => $email,
-        ]);
+        $user = User::findOrFail($id);
+        return $user->update($data->all());
     }
 }

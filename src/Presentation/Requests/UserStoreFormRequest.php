@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Presentation\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
+use Shared\Enums\UserStatus;
 
 class UserStoreFormRequest extends FormRequest
 {
@@ -27,6 +29,7 @@ class UserStoreFormRequest extends FormRequest
             'name' => ['required', 'string', 'min:3'],
             'email' => ['required', 'email'],
             'password' => ['required', 'min:6', 'max:20'],
+            'status' => ['required', new Enum(UserStatus::class)],
         ];
     }
 }
