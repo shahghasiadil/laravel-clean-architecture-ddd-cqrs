@@ -16,5 +16,5 @@ interface UserRepositoryContract
 
     public function getAllUsers(): Collection;
 
-    public function update(int $id, string $name, string $email): int;
+    public function update(int $id, UserData $data): int;
 }
