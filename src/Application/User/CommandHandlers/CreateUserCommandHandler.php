@@ -19,6 +19,6 @@ final class CreateUserCommandHandler extends CommandHandler
 
     public function handle(CreateUserCommand $command): string
     {
-        return $this->userRepository->save($command->CreateUserDTO);
+        return $this->userRepository->save($command->userData);
     }
 }

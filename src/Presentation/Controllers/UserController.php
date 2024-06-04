@@ -8,9 +8,9 @@ use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
 use Application\User\Actions\UpdateUser;
 use Application\User\Commands\CreateUserCommand;
-use Application\User\DTOs\CreateUserDTO;
+use Application\User\Data\UserData;
+use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
-use Domain\User\Entities\User;
 use Illuminate\Http\Request;
 use Presentation\Requests\UserStoreFormRequest;
 
@@ -21,26 +21,28 @@ final class UserController extends Controller
         protected QueryBusContract $queryBus,
     ) {}
 
-    public function store(UserStoreFormRequest $request): User
+    public function store(UserStoreFormRequest $request): UsersListData
     {
 
-        $CreateUserDTO = new CreateUserDTO(...$request->validated());
+        $userData = UserData::from($request->validated());
 
         $email = $this->commandBus->dispatch(
-            new CreateUserCommand($CreateUserDTO),
+            new CreateUserCommand($userData),
         );
 
         $user = $this->queryBus->ask(
             new GetUserByEmailQuery($email),
         );
 
-        return $user;
+        return UsersListData::from($user);
     }
 
-    public function update(int $id, Request $request, UpdateUser $updateUser): User
+    public function update(int $id, Request $request, UpdateUser $updateUser): UsersListData
     {
         $updateUser($id, $request->name, $request->email);
 
-        return $this->queryBus->ask(new GetUserByEmailQuery($request->email));
+        $user = $this->queryBus->ask(new GetUserByEmailQuery($request->email));
+
+        return UsersListData::from($user);
     }
 }
