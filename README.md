@@ -62,6 +62,47 @@ Here are the steps to get your development environment running:
 
 The project follows a modular architecture based on Clean Architecture principles, separating concerns into distinct layers. Below is the directory structure and a detailed description of each layer's responsibility.
 
+```plaintext
+src/
+├── Application/
+│ ├── Bus/
+│ ├── Providers/
+│ └── User/
+│ ├──── CommandHandlers/
+│ ├──── Commands/
+│ ├──── Contracts/
+│ ├──── Data/
+│ ├──── Queries/
+│ └──── Services/
+├── Domain/
+│ ├── Providers/
+│ └── User/
+│ ├──── Entities/
+│ ├──── Events/
+│ ├──── Exceptions/
+│ ├──── Observers/
+│ ├──── Policies/
+│ └──── Repositories/
+├── Infrastructure/
+│ ├── Providers/
+│ └── User/
+│ ├──── Jobs/
+│ ├──── Notifications/
+│ └──── Persistence/
+│ └──────── Repositories/
+├── Presentation/
+│ └── UserManagement/
+│ ├──── Controllers/
+│ ├──── Middlewares/
+│ ├──── Requests/
+│ ├──── Resources/
+│ └──── routes/
+│ └── Controller.php
+└── Shared/
+├──── Contracts/
+├──── Enums/
+└──── Traits/
+
 ### Description of Layers
 
 -   **Application**: Manages the application logic and orchestrates the flow of data between the domain and presentation layers. This layer includes:
@@ -111,3 +152,4 @@ The project follows a modular architecture based on Clean Architecture principle
     -   `Traits`: Reusable traits that provide utility functions or methods to multiple classes.
 
 This architecture not only segregates the responsibilities into clear, well-defined areas but also promotes a high degree of modularity and replaceability of components.
+```
