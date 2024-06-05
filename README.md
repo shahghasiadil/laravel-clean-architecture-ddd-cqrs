@@ -41,3 +41,12 @@ This project is designed for developers and teams looking to leverage advanced a
 -   **Enhanced DDD Implementation**: Provides a deeper implementation of Domain-Driven Design than typical repositories, focusing on complex domain logic and ensuring that business rules are encapsulated within domain entities.
 -   **CQRS-Ready**: Includes a built-in structure for Command Query Responsibility Segregation, optimizing read and write operations for better performance and scalability compared to conventional Laravel architectures.
 -   **Service Layer Alternative**: Alongside CQRS, the project also supports a robust Service Layer architecture, providing an alternative approach for those preferring a more traditional but equally structured pattern for handling business logic and application services.
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+-   PHP ^8.3
+-   Composer
+-   Laravel ^11.0
+-   Any other server requirements or dependencies needed to run Laravel.
