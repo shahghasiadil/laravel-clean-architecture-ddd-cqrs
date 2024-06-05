@@ -14,3 +14,9 @@ This Laravel project applies the principles of Clean Architecture, Domain-Driven
 -   [Contributing](#contributing)
 -   [License](#license)
 -   [Contact](#contact)
+
+## Key Concepts
+
+-   **Clean Architecture**: Ensures independence from UI, databases, frameworks, and external agencies. The dependency rule is central, promoting the inversion of control.
+-   **Domain-Driven Design (DDD)**: Focuses on complex domain logic, placing the primary project emphasis on the core domain and domain logic.
+-   **Command Query Responsibility Segregation (CQRS)**: Separates read and write operations, improving performance, scalability, and maintainability.
