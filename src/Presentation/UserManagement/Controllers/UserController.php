@@ -11,7 +11,7 @@ use Application\User\Contracts\UserServiceContract;
 use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
-use Presentation\Controllers\Controller;
+use Presentation\Controller;
 use Presentation\UserManagement\Requests\UserFormRequest;
 
 class UserController extends Controller
