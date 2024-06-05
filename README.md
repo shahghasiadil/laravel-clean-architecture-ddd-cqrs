@@ -153,3 +153,11 @@ src/
     -   `Traits`: Reusable traits that provide utility functions or methods to multiple classes.
 
 This architecture not only segregates the responsibilities into clear, well-defined areas but also promotes a high degree of modularity and replaceability of components.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit pull requests to contribute.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
