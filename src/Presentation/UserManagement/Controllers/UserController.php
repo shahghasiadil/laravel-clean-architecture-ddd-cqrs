@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Presentation\Controllers;
+namespace Presentation\UserManagement\Controllers;
 
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
@@ -11,10 +11,10 @@ use Application\User\Contracts\UserServiceContract;
 use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
-use Illuminate\Http\Request;
+use Presentation\Controllers\Controller;
 use Presentation\Requests\UserFormRequest;
 
-final class UserController extends Controller
+class UserController extends Controller
 {
     public function __construct(
         protected CommandBusContract $commandBus,
