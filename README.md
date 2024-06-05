@@ -1,66 +1,173 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Clean Architecture, DDD & CQRS Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This Laravel project applies the principles of Clean Architecture, Domain-Driven Design (DDD), and Command Query Responsibility Segregation (CQRS) to create a robust, scalable, and maintainable web application. It is designed for developers who aim to build complex systems with a clear separation of concerns and a strong alignment between the business domain and technology.
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   [Key Concepts](#key-concepts)
+-   [Who is this project for?](#who-is-this-project-for)
+-   [When to Use This Project](#when-to-use-this-project)
+-   [Why Choose This Project Over Others?](#why-choose-this-project-over-others)
+-   [Prerequisites](#prerequisites)
+-   [Installation](#installation)
+-   [Project Structure](#project-structure)
+-   [Contributing](#contributing)
+-   [License](#license)
+-   [Contact](#contact)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Key Concepts
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Clean Architecture**: Ensures independence from UI, databases, frameworks, and external agencies. The dependency rule is central, promoting the inversion of control.
+-   **Domain-Driven Design (DDD)**: Focuses on complex domain logic, placing the primary project emphasis on the core domain and domain logic.
+-   **Command Query Responsibility Segregation (CQRS)**: Separates read and write operations, improving performance, scalability, and maintainability.
 
-## Learning Laravel
+## Who is this project for?
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This project is designed for developers and teams looking to leverage advanced architectural patterns in building complex business applications using Laravel. It is particularly suited for:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   **Enterprise Applications**: Where business rules and processes are complex, necessitating a clear separation between core logic and infrastructure.
+-   **Scalable Systems**: Where scalability and flexibility are crucial, enabling the system to evolve rapidly with changing business requirements.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## When to Use This Project
 
-## Laravel Sponsors
+-   **Building New Applications**: Ideal for initiating projects with a focus on long-term maintainability and adherence to sophisticated architectural patterns.
+-   **Refactoring Existing Applications**: Beneficial for restructuring a cluttered Laravel project into a more manageable and performant architecture.
+-   **Learning Best Practices**: Excellent for educational purposes to understand and implement high-level software architecture within a Laravel setting.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Why Choose This Project Over Others?
 
-### Premium Partners
+-   **Advanced Clean Architecture**: Compared to traditional MVC or other Laravel projects, this framework integrates Clean Architecture principles more rigorously, promoting a high degree of independence between the domain logic, UI, and database.
+-   **Optimized for Laravel 11**: Utilizes the latest features of Laravel 11, offering a more advanced toolkit for dependency injection, queue management, and real-time event handling, which are essential for modern web applications.
+-   **Enhanced DDD Implementation**: Provides a deeper implementation of Domain-Driven Design than typical repositories, focusing on complex domain logic and ensuring that business rules are encapsulated within domain entities.
+-   **CQRS-Ready**: Includes a built-in structure for Command Query Responsibility Segregation, optimizing read and write operations for better performance and scalability compared to conventional Laravel architectures.
+-   **Service Layer Alternative**: Alongside CQRS, the project also supports a robust Service Layer architecture, providing an alternative approach for those preferring a more traditional but equally structured pattern for handling business logic and application services.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+-   PHP ^8.3
+-   Composer
+-   Laravel ^11.0
+-   Any other server requirements or dependencies needed to run Laravel.
+
+Here are the steps to get your development environment running:
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/shahghasiadil/clean-architecture-laravel.git
+    ```
+
+## Project Structure
+
+The project follows a modular architecture based on Clean Architecture principles, separating concerns into distinct layers. Below is the directory structure and a detailed description of each layer's responsibility.
+
+```plaintext
+src/
+├── Application/
+│ ├── Bus/
+│ ├── Providers/
+│ └── User/
+│ ├──── CommandHandlers/
+│ ├──── Commands/
+│ ├──── Contracts/
+│ ├──── Data/
+│ ├──── Queries/
+│ └──── Services/
+├── Domain/
+│ ├── Providers/
+│ └── User/
+│ ├──── Entities/
+│ ├──── Events/
+│ ├──── Exceptions/
+│ ├──── Observers/
+│ ├──── Policies/
+│ └──── Repositories/
+├── Infrastructure/
+│ ├── Providers/
+│ └── User/
+│ ├──── Jobs/
+│ ├──── Notifications/
+│ └──── Persistence/
+│ └──────── Repositories/
+├── Presentation/
+│ └── UserManagement/
+│ ├──── Controllers/
+│ ├──── Middlewares/
+│ ├──── Requests/
+│ ├──── Resources/
+│ └──── routes/
+│ └── Controller.php
+└── Shared/
+├──── Contracts/
+├──── Enums/
+└──── Traits/
+```
+
+### Description of Layers
+
+-   **Application**: Manages the application logic and orchestrates the flow of data between the domain and presentation layers. This layer includes:
+
+    -   `Bus`: Responsible for dispatching commands and queries to the appropriate handlers.
+    -   `Providers`: Service providers specific to the application layer, registering application-specific services and dependencies.
+    -   `User`: Contains all user-related business logic, divided into:
+        -   `CommandHandlers`: Handles commands related to user actions.
+        -   `Commands`: CQRS commands for user-related operations.
+        -   `Contracts`: Interface definitions for services and repositories dealing with user data.
+        -   `Data`: Data transfer objects (DTOs) that carry data between processes we are using Laravel Data.
+        -   `Queries`: CQRS queries for retrieving user data.
+        -   `Services`: Services that execute business logic and use cases related to users.
+
+-   **Domain**: The heart of the business logic, defining entities, value objects, and domain events.
+
+    -   `Providers`: Domain-level service providers that bind interfaces to implementations within the domain scope.
+    -   `User`: Domain logic and entities specific to user management, including:
+        -   `Entities`: Domain models representing users.
+        -   `Events`: Events that are domain-specific and might trigger domain actions.
+        -   `Exceptions`: Custom exceptions for domain-specific error handling.
+        -   `Observers`: Observers for watching changes in domain entities.
+        -   `Policies`: Security policies related to user entities.
+        -   `Repositories`: Interfaces for user repository implementations.
+
+-   **Infrastructure**: Implements the interfaces defined by the domain layer, dealing with data persistence and external systems.
+
+    -   `Providers`: Infrastructure-level service providers that register infrastructure-specific services and dependencies.
+    -   `User`: Infrastructure logic specific to user management, including:
+        -   `Jobs`: Background jobs for asynchronous user tasks.
+        -   `Notifications`: Notification services to handle alerts and communications.
+        -   `Persistence`: Persistence mechanisms for user data, including:
+            -   `Repositories`: Concrete implementations of user repository interfaces.
+
+-   **Presentation**: Manages the delivery mechanisms, dealing with how the application is presented to the end user (APIs, web UI, etc.).
+
+    -   `UserManagement`: Presentation logic specifically for managing users, including:
+        -   `Controllers`: Controllers to handle incoming API requests and deliver appropriate responses.
+        -   `Middlewares`: Middleware to handle request filtering and pre/post processing.
+        -   `Requests`: Form requests for validating user-related data.
+        -   `Resources`: Resources and transformers that format domain data into user-friendly formats.
+        -   `routes`: Routing configurations that direct incoming requests to the appropriate controllers.
+
+-   **Shared**: Contains elements that are used across multiple layers, providing cross-cutting functionality.
+    -   `Contracts`: Shared interface definitions that might be used by many components.
+    -   `Enums`: Enumerations that provide a set of constants for use throughout the application.
+    -   `Traits`: Reusable traits that provide utility functions or methods to multiple classes.
+
+This architecture not only segregates the responsibilities into clear, well-defined areas but also promotes a high degree of modularity and replaceability of components.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Contributions are welcome! Please fork the repository and submit pull requests to contribute.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+## Want to Shift Your Project to Clean Architecture? Hire Me
+
+If you're looking to transition your existing project to Clean Architecture, implement Domain-Driven Design (DDD), or incorporate Command Query Responsibility Segregation (CQRS), I'm here to help. I specialize in restructuring and optimizing Laravel applications to adhere to these sophisticated architectural principles, ensuring scalability, maintainability, and performance.
+
+For any inquiries or to discuss your project requirements, feel free to reach out:
+
+-   **Hire Me on Upwork**: [Visit my Upwork profile](https://www.upwork.com/freelancers/~01727f79fa86415f72)
+
+Let's elevate your project to the next level!

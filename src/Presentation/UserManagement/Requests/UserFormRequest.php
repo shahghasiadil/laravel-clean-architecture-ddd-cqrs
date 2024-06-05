@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Presentation\Requests;
+namespace Presentation\UserManagement\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 use Shared\Enums\UserStatus;
 
-class UserStoreFormRequest extends FormRequest
+class UserFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

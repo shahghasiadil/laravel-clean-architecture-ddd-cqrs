@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Presentation\Controllers;
+namespace Presentation\UserManagement\Controllers;
 
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
@@ -11,10 +11,10 @@ use Application\User\Contracts\UserServiceContract;
 use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
-use Illuminate\Http\Request;
-use Presentation\Requests\UserStoreFormRequest;
+use Presentation\Controller;
+use Presentation\UserManagement\Requests\UserFormRequest;
 
-final class UserController extends Controller
+class UserController extends Controller
 {
     public function __construct(
         protected CommandBusContract $commandBus,
@@ -22,7 +22,7 @@ final class UserController extends Controller
         protected UserServiceContract $userService,
     ) {}
 
-    public function store(UserStoreFormRequest $request): UsersListData
+    public function store(UserFormRequest $request): UsersListData
     {
 
         $userData = UserData::from($request->validated());
@@ -38,9 +38,9 @@ final class UserController extends Controller
         return UsersListData::from($user);
     }
 
-    public function update(int $id, Request $request): UsersListData
+    public function update(int $id, UserFormRequest $request): UsersListData
     {
-        $userData = UserData::from($request->all());
+        $userData = UserData::from($request->validated());
 
         $this->userService->update($id, $userData);
 
