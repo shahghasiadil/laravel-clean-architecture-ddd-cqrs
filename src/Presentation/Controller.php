@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Presentation\Controllers;
+namespace Presentation;
 
 abstract class Controller {}
