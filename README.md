@@ -102,6 +102,7 @@ src/
 ├──── Contracts/
 ├──── Enums/
 └──── Traits/
+```
 
 ### Description of Layers
 
@@ -152,4 +153,3 @@ src/
     -   `Traits`: Reusable traits that provide utility functions or methods to multiple classes.
 
 This architecture not only segregates the responsibilities into clear, well-defined areas but also promotes a high degree of modularity and replaceability of components.
-```
