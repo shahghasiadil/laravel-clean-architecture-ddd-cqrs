@@ -12,7 +12,7 @@ use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
 use Presentation\Controllers\Controller;
-use Presentation\Requests\UserFormRequest;
+use Presentation\UserManagement\Requests\UserFormRequest;
 
 class UserController extends Controller
 {
