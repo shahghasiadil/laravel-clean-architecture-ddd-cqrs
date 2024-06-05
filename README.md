@@ -20,3 +20,10 @@ This Laravel project applies the principles of Clean Architecture, Domain-Driven
 -   **Clean Architecture**: Ensures independence from UI, databases, frameworks, and external agencies. The dependency rule is central, promoting the inversion of control.
 -   **Domain-Driven Design (DDD)**: Focuses on complex domain logic, placing the primary project emphasis on the core domain and domain logic.
 -   **Command Query Responsibility Segregation (CQRS)**: Separates read and write operations, improving performance, scalability, and maintainability.
+
+## Who is this project for?
+
+This project is designed for developers and teams looking to leverage advanced architectural patterns in building complex business applications using Laravel. It is particularly suited for:
+
+-   **Enterprise Applications**: Where business rules and processes are complex, necessitating a clear separation between core logic and infrastructure.
+-   **Scalable Systems**: Where scalability and flexibility are crucial, enabling the system to evolve rapidly with changing business requirements.
