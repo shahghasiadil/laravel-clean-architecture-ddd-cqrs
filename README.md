@@ -161,13 +161,3 @@ Contributions are welcome! Please fork the repository and submit pull requests t
 ## License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details.
-
-## Want to Shift Your Project to Clean Architecture? Hire Me
-
-If you're looking to transition your existing project to Clean Architecture, implement Domain-Driven Design (DDD), or incorporate Command Query Responsibility Segregation (CQRS), I'm here to help. I specialize in restructuring and optimizing Laravel applications to adhere to these sophisticated architectural principles, ensuring scalability, maintainability, and performance.
-
-For any inquiries or to discuss your project requirements, feel free to reach out:
-
--   **Hire Me on Upwork**: [Visit my Upwork profile](https://www.upwork.com/freelancers/~01727f79fa86415f72)
-
-Let's elevate your project to the next level!
