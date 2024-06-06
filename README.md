@@ -9,7 +9,6 @@ This Laravel project applies the principles of Clean Architecture, Domain-Driven
 -   [When to Use This Project](#when-to-use-this-project)
 -   [Why Choose This Project Over Others?](#why-choose-this-project-over-others)
 -   [Prerequisites](#prerequisites)
--   [Installation](#installation)
 -   [Project Structure](#project-structure)
 -   [Contributing](#contributing)
 -   [License](#license)
