@@ -13,7 +13,6 @@ This Laravel project applies the principles of Clean Architecture, Domain-Driven
 -   [Project Structure](#project-structure)
 -   [Contributing](#contributing)
 -   [License](#license)
--   [Contact](#contact)
 
 ## Key Concepts
 
