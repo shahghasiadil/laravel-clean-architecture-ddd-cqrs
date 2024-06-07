@@ -44,7 +44,7 @@ This project is designed for developers and teams looking to leverage advanced a
 
 Before you begin, ensure you have met the following requirements:
 
--   PHP ^8.3
+-   PHP [8.2, 8.3]
 -   Composer
 -   Laravel ^11.0
 -   Any other server requirements or dependencies needed to run Laravel.
