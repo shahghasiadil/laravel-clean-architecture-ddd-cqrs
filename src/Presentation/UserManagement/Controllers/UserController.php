@@ -11,6 +11,7 @@ use Application\User\Contracts\UserServiceContract;
 use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
+use Illuminate\Database\Eloquent\Collection;
 use Presentation\Controller;
 use Presentation\UserManagement\Requests\UserFormRequest;
 
@@ -47,5 +48,12 @@ class UserController extends Controller
         $user = $this->queryBus->ask(new GetUserByEmailQuery($request->email));
 
         return UsersListData::from($user);
+    }
+
+    public function index(): Collection {
+
+        $users = $this->userService->index();
+
+        return UsersListData::collect($users);
     }
 }
