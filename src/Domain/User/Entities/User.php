@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\User\Entities;
 
+use Domain\User\Factories\UserFactory;
 use Domain\User\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,4 +53,11 @@ class User extends Authenticatable
             'status' => UserStatus::class,
         ];
     }
+
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
+
 }
