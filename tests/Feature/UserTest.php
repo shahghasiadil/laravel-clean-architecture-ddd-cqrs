@@ -27,3 +27,34 @@ it('retrieves all users', function () {
     $this->assertCount(5, $response->json());
 });
 
+it('updates a user', function () {
+
+    $user = User::factory()->create([
+        'name' => 'Muqtadir Khan',
+        'email' => 'muqtadir.khan@gmail.com',
+        'password' => '123456789',
+        'status' => 'active'
+    ]);
+
+    $updateData = [
+        'name' => 'Muqtadir Khan',
+        'email' => 'muqtadir.khan@gmail.com',
+        'password' => '123456756',
+        'status' => 'suspended'
+    ];
+
+    $response = $this->put("/api/users/{$user->id}/update", $updateData);
+
+    $response->assertStatus(200)
+             ->assertJson([
+                 'id' => $user->id,
+                 'name' => 'Muqtadir Khan',
+                 'email' => 'muqtadir.khan@gmail.com'
+             ]);
+
+    $this->assertDatabaseHas('users', [
+        'id' => $user->id,
+        'name' => 'Muqtadir Khan',
+        'email' => 'muqtadir.khan@gmail.com'
+    ]);
+});
