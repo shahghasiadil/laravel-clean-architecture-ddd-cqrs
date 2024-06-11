@@ -50,7 +50,8 @@ class UserController extends Controller
         return UsersListData::from($user);
     }
 
-    public function index(): Collection {
+    public function index(): Collection
+    {
 
         $users = $this->userService->index();
 
