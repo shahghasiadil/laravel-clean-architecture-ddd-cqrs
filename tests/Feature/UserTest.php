@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\User\Entities\User;
 
-it('creates users', function () {
+it('creates users', function (): void {
 
     User::factory()->count(5)->create();
 
@@ -13,48 +15,48 @@ it('creates users', function () {
 });
 
 
-it('retrieves all users', function () {
+it('retrieves all users', function (): void {
 
     User::factory()->count(5)->create();
 
     $response = $this->get('/api/users');
 
     $response->assertStatus(200)
-             ->assertJsonStructure([
-                 '*' => ['id', 'name', 'email', 'status', 'created_at', 'updated_at']
-             ]);
+        ->assertJsonStructure([
+            '*' => ['id', 'name', 'email', 'status', 'created_at', 'updated_at'],
+        ]);
 
     $this->assertCount(5, $response->json());
 });
 
-it('updates a user', function () {
+it('updates a user', function (): void {
 
     $user = User::factory()->create([
         'name' => 'Muqtadir Khan',
         'email' => 'muqtadir.khan@gmail.com',
         'password' => '123456789',
-        'status' => 'active'
+        'status' => 'active',
     ]);
 
     $updateData = [
         'name' => 'Muqtadir Khan',
         'email' => 'muqtadir.khan@gmail.com',
         'password' => '123456756',
-        'status' => 'suspended'
+        'status' => 'suspended',
     ];
 
     $response = $this->put("/api/users/{$user->id}/update", $updateData);
 
     $response->assertStatus(200)
-             ->assertJson([
-                 'id' => $user->id,
-                 'name' => 'Muqtadir Khan',
-                 'email' => 'muqtadir.khan@gmail.com'
-             ]);
+        ->assertJson([
+            'id' => $user->id,
+            'name' => 'Muqtadir Khan',
+            'email' => 'muqtadir.khan@gmail.com',
+        ]);
 
     $this->assertDatabaseHas('users', [
         'id' => $user->id,
         'name' => 'Muqtadir Khan',
-        'email' => 'muqtadir.khan@gmail.com'
+        'email' => 'muqtadir.khan@gmail.com',
     ]);
 });

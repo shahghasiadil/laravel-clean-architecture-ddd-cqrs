@@ -40,6 +40,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -52,12 +58,6 @@ class User extends Authenticatable
             'password' => 'hashed',
             'status' => UserStatus::class,
         ];
-    }
-
-
-    protected static function newFactory()
-    {
-        return UserFactory::new();
     }
 
 }
