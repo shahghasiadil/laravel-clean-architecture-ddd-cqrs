@@ -29,5 +29,3 @@ arch('Presentation should not be used in Domain, Application, Shared, Infrastruc
 arch('Shared resources should be accessible by all layers')
     ->expect('Shared')
     ->toOnlyBeUsedIn(['Domain', 'Application', 'Infrastructure', 'Presentation']);
-
-
