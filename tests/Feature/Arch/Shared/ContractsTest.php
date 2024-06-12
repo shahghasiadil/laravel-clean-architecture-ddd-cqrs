@@ -1,7 +1,5 @@
 <?php
 
-test('example', function () {
-    $response = $this->get('/');
-
-    $response->assertStatus(200);
-});
+arch('shared interfaces/contracts test')
+    ->expect('src\Shared\Contracts')
+    ->toBeInterfaces();
