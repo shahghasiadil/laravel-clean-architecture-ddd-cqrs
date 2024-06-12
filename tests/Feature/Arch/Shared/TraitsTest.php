@@ -1,7 +1,5 @@
 <?php
 
-test('example', function () {
-    $response = $this->get('/');
-
-    $response->assertStatus(200);
-});
+arch('shared traits')
+    ->expect('src\Shared\Traits')
+    ->toBeTraits();
