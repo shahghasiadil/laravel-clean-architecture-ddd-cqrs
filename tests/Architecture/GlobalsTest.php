@@ -14,22 +14,20 @@ arch('Domain can be accessed by Infrastructure and Application Layers')
     ->expect('Domain')
     ->toOnlyBeUsedIn(['Infrastructure', 'Application']);
 
-arch('Infrastructure should only access Domain and Shared Resources layers')
-    ->expect('Infrastructure')
-    ->toOnlyBeUsedIn(['Domain', 'Shared']);
-
 arch('Infrastructure should not access the Presentation Layer directly')
     ->expect('Infrastructure')
-    ->not->toBeUsedIn(['Presentation']);
+    ->not->toBeUsedIn(['Presentation','Domain', 'Shared']);
 
 arch('Presentation should only access Application and Shared Resources layers')
     ->expect('Presentation')
     ->toOnlyBeUsedIn(['Application', 'Shared']);
 
-arch('Presentation should not access Domain Layer directly')
+arch('Presentation should not be used in Domain Layer')
     ->expect('Presentation')
     ->not->toBeUsedIn(['Domain']);
 
 arch('Shared resources should be accessible by all layers')
     ->expect('Shared')
     ->toOnlyBeUsedIn(['Domain', 'Application', 'Infrastructure', 'Presentation']);
+
+
