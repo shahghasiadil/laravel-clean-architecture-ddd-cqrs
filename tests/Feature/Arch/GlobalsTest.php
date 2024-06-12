@@ -1,7 +1,5 @@
 <?php
 
-test('example', function () {
-    $response = $this->get('/');
-
-    $response->assertStatus(200);
-});
+arch('globals')
+    ->expect(['dd', 'dump', 'ray'])
+    ->not->toBeUsed();
