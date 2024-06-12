@@ -9,3 +9,8 @@ arch('globals')
 arch('app')
     ->expect(['Shared', 'Domain','Infrastructure','Application','Presentation'])
     ->toUseStrictTypes();
+
+arch('Domain can be accessed by Infrastructure, Application Layers')
+    ->expect('Domain')
+    ->toOnlyBeUsedIn(['Infrastructure','Application']);
+
