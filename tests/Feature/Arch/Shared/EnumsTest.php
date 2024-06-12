@@ -1,5 +1,5 @@
 <?php
 
-arch('shared')
+arch('shared enums test')
     ->expect('src\Shared\Enums')
-    ->toBeIntBackedEnums();;
+    ->toBeIntBackedEnums();
