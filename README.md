@@ -112,7 +112,7 @@ src/
         -   `CommandHandlers`: Handles commands related to user actions.
         -   `Commands`: CQRS commands for user-related operations.
         -   `Contracts`: Interface definitions for services and repositories dealing with user data.
-        -   `Data`: Data transfer objects (DTOs) that carry data between processes we are using Laravel Data.
+        -   `Data`: Data transfer objects (DTOs) that carry data between processes we are using Spatie Laravel Data Package.
         -   `Queries`: CQRS queries for retrieving user data.
         -   `Services`: Services that execute business logic and use cases related to users.
 
