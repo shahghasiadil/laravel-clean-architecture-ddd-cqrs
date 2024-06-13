@@ -11,7 +11,6 @@ This Laravel project applies the principles of Clean Architecture, Domain-Driven
 -   [Prerequisites](#prerequisites)
 -   [Project Structure](#project-structure)
 -   [Contributing](#contributing)
--   [License](#license)
 
 ## Key Concepts
 
@@ -156,6 +155,3 @@ This architecture not only segregates the responsibilities into clear, well-defi
 
 Contributions are welcome! Please fork the repository and submit pull requests to contribute.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
