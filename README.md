@@ -52,7 +52,7 @@ Here are the steps to get your development environment running:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/shahghasiadil/clean-architecture-laravel.git
+    git clone https://github.com/shahghasiadil/laravel-clean-architecture-ddd-cqrs.git
     ```
 
 ## Project Structure
