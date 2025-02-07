@@ -80,7 +80,7 @@ return [
      * this key can be set globally here for all data objects. You can pass in
      * `null` if you want to disable wrapping.
      */
-    'wrap' => null,
+    'wrap' => 'data',
 
     /**
      * Adds a specific caster to the Symphony VarDumper component which hides
