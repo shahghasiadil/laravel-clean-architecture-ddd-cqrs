@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserService implements UserServiceContract
 {
-    public function __construct(private UserRepositoryContract $userRepository) {}
+    public function __construct(private readonly UserRepositoryContract $userRepository) {}
 
     public function index(): Collection
     {
@@ -21,6 +21,6 @@ class UserService implements UserServiceContract
 
     public function update($id, UserData $userData): bool
     {
-        return DB::transaction(fn() => $this->userRepository->update($id, $userData));
+        return DB::transaction(fn(): bool => $this->userRepository->update($id, $userData));
     }
 }
