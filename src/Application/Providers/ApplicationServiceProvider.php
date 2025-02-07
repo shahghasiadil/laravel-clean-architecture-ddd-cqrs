@@ -13,6 +13,8 @@ use Application\User\Commands\CreateUserCommand;
 use Application\User\Contracts\UserServiceContract;
 use Application\User\Queries\GetUserByEmailQuery;
 use Application\User\Queries\GetUserByEmailQueryHandler;
+use Application\User\Queries\GetUserByIdQuery;
+use Application\User\Queries\GetUserByIdQueryHandler;
 use Application\User\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -61,6 +63,7 @@ class ApplicationServiceProvider extends ServiceProvider
         $queryBus = app(QueryBusContract::class);
         $queryBus->register([
             GetUserByEmailQuery::class => GetUserByEmailQueryHandler::class,
+            GetUserByIdQuery::class => GetUserByIdQueryHandler::class
         ]);
     }
 }
