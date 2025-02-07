@@ -12,7 +12,7 @@ use Application\User\Data\UserData;
 use Application\User\Data\UsersListData;
 use Application\User\Queries\GetUserByEmailQuery;
 use Application\User\Queries\GetUserByIdQuery;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Presentation\Controller;
 use Presentation\UserManagement\Requests\UserFormRequest;
 
@@ -59,7 +59,8 @@ class UserController extends Controller
         return UsersListData::collect($users);
     }
 
-    public function show(int $id): UsersListData {
+    public function show(int $id): UsersListData
+    {
         $user = $this->queryBus->ask(new GetUserByIdQuery($id));
 
         return UsersListData::from($user);
