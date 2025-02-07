@@ -10,9 +10,7 @@ use Domain\User\Repositories\UserRepositoryContract;
 
 final class CreateUserCommandHandler extends CommandHandler
 {
-    public function __construct(private readonly UserRepositoryContract $userRepository)
-    {
-    }
+    public function __construct(private readonly UserRepositoryContract $userRepository) {}
 
     public function handle(CreateUserCommand $command): string
     {

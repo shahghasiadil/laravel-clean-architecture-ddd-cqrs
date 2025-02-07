@@ -63,7 +63,7 @@ class ApplicationServiceProvider extends ServiceProvider
         $queryBus = app(QueryBusContract::class);
         $queryBus->register([
             GetUserByEmailQuery::class => GetUserByEmailQueryHandler::class,
-            GetUserByIdQuery::class => GetUserByIdQueryHandler::class
+            GetUserByIdQuery::class => GetUserByIdQueryHandler::class,
         ]);
     }
 }
