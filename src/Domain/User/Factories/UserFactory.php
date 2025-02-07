@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Shared\Enums\UserStatus;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Domain\User\Entities\User>
  */
 class UserFactory extends Factory
 {
@@ -20,7 +20,13 @@ class UserFactory extends Factory
      */
     protected static ?string $password = null;
 
+    /**
+     * The model that the factory corresponds to.
+     *
+     * @var class-string<User>
+     */
     protected $model = User::class;
+
     /**
      * Define the model's default state.
      *
