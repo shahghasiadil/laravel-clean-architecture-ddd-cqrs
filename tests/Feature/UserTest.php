@@ -45,18 +45,22 @@ it('updates a user', function (): void {
         'status' => 'suspended',
     ];
 
-    $response = $this->put("/api/users/{$user->id}/update", $updateData);
+    $response = $this->patch("/api/users/{$user->id}", $updateData);
 
     $response->assertStatus(200)
         ->assertJson([
-            'id' => $user->id,
-            'name' => 'Muqtadir Khan',
-            'email' => 'muqtadir.khan@gmail.com',
+            'data' => [
+                'id' => $user->id,
+                'name' => 'Muqtadir Khan',
+                'email' => 'muqtadir.khan@gmail.com',
+                'status' => 'suspended',
+            ]
         ]);
 
     $this->assertDatabaseHas('users', [
         'id' => $user->id,
         'name' => 'Muqtadir Khan',
         'email' => 'muqtadir.khan@gmail.com',
+        'status' => 'suspended',
     ]);
 });
