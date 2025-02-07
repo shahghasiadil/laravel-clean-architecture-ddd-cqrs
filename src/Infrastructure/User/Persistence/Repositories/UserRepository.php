@@ -25,6 +25,13 @@ final class UserRepository implements UserRepositoryContract
         return $user ?? null;
     }
 
+    public function findById(int $id): ?User
+    {
+        $user = User::where('id', $id)->first();
+
+        return $user ?? null;
+    }
+
     public function getAllUsers(): Collection
     {
         return User::all();
