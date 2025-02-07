@@ -11,5 +11,6 @@ Route::get('/user', fn(Request $request) => $request->user())->middleware('auth:
 Route::controller(UserController::class)->group(function (): void {
     Route::post('users', 'store');
     Route::patch('users/{id}', 'update');
+    Route::get('users/{id}', 'show');
     Route::get('users', 'index');
 });
