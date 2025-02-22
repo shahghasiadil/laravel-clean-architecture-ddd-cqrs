@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Shared\Enums;
+namespace Domain\User\Enums;
 
-use Shared\Traits\EnumValues;
+use Domain\Common\Traits\EnumValues;
 
 enum UserStatus: string
 {

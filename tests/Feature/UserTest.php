@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Domain\User\Entities\User;
+use Domain\User\Enums\UserStatus;
 
 it('creates users', function (): void {
 
@@ -35,14 +36,14 @@ it('updates a user', function (): void {
         'name' => 'Muqtadir Khan',
         'email' => 'muqtadir.khan@gmail.com',
         'password' => '123456789',
-        'status' => 'active',
+        'status' => UserStatus::Active->value,
     ]);
 
     $updateData = [
         'name' => 'Muqtadir Khan',
         'email' => 'muqtadir.khan@gmail.com',
         'password' => '123456756',
-        'status' => 'suspended',
+        'status' => UserStatus::Suspended->value,
     ];
 
     $response = $this->patch("/api/users/{$user->id}", $updateData);
@@ -53,7 +54,7 @@ it('updates a user', function (): void {
                 'id' => $user->id,
                 'name' => 'Muqtadir Khan',
                 'email' => 'muqtadir.khan@gmail.com',
-                'status' => 'suspended',
+                'status' => UserStatus::Suspended->value,
             ]
         ]);
 
@@ -61,6 +62,6 @@ it('updates a user', function (): void {
         'id' => $user->id,
         'name' => 'Muqtadir Khan',
         'email' => 'muqtadir.khan@gmail.com',
-        'status' => 'suspended',
+        'status' => UserStatus::Suspended->value,
     ]);
 });

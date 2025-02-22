@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\User\Data;
 
 use Carbon\Carbon;
-use Shared\Enums\UserStatus;
+use Domain\User\Enums\UserStatus;
 use Spatie\LaravelData\Data;
 
 class UsersListData extends Data

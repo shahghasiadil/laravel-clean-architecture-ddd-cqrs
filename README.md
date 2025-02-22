@@ -73,7 +73,11 @@ src/
 │ └──── Services/
 ├── Domain/
 │ ├── Providers/
+│ ├── Common/
+│ ├──── Enums/
+│ ├──── Traits/
 │ └── User/
+│ ├──── Enums/
 │ ├──── Entities/
 │ ├──── Events/
 │ ├──── Exceptions/
@@ -118,8 +122,12 @@ src/
 -   **Domain**: The heart of the business logic, defining entities, value objects, and domain events.
 
     -   `Providers`: Domain-level service providers that bind interfaces to implementations within the domain scope.
+    -   `Common`: Shared utilities and components that span across multiple domains:
+        -   `Enums`: Cross-domain enumerations defining shared constants and states.
+        -   `Traits`: Reusable traits that provide common functionality across various domains.
     -   `User`: Domain logic and entities specific to user management, including:
         -   `Entities`: Domain models representing users.
+        -   `Enums`: User-specific enumerations that define states or types relevant to user management.
         -   `Events`: Events that are domain-specific and might trigger domain actions.
         -   `Exceptions`: Custom exceptions for domain-specific error handling.
         -   `Observers`: Observers for watching changes in domain entities.
@@ -154,4 +162,3 @@ This architecture not only segregates the responsibilities into clear, well-defi
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit pull requests to contribute.
-
