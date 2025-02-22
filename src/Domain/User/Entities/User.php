@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\User\Entities;
 
+use Domain\User\Enums\UserStatus;
 use Domain\User\Factories\UserFactory;
 use Domain\User\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Shared\Enums\UserStatus;
 
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
