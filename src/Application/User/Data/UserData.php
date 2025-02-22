@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\User\Data;
 
-use Shared\Enums\UserStatus;
+use Domain\User\Enums\UserStatus;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
