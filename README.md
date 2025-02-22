@@ -73,7 +73,11 @@ src/
 │ └──── Services/
 ├── Domain/
 │ ├── Providers/
+│ ├── Common/
+│ ├──── Enums/
+│ ├──── Traits/
 │ └── User/
+│ ├──── Enums/
 │ ├──── Entities/
 │ ├──── Events/
 │ ├──── Exceptions/
