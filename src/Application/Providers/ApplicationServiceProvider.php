@@ -38,11 +38,7 @@ class ApplicationServiceProvider extends ServiceProvider
         UserServiceContract::class => UserService::class,
     ];
 
-    public function register(): void
-    {
-        // $this->registerSingletons();
-
-    }
+    public function register(): void {}
 
     public function boot(): void
     {

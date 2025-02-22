@@ -55,7 +55,7 @@ it('updates a user', function (): void {
                 'name' => 'Muqtadir Khan',
                 'email' => 'muqtadir.khan@gmail.com',
                 'status' => UserStatus::Suspended->value,
-            ]
+            ],
         ]);
 
     $this->assertDatabaseHas('users', [
