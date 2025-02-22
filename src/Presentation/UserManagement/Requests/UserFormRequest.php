@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Presentation\UserManagement\Requests;
 
+use Domain\User\Enums\UserStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
-use Shared\Enums\UserStatus;
 
 class UserFormRequest extends FormRequest
 {
