@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Domain\User\Factories;
 
 use Domain\User\Entities\User;
+use Domain\User\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Shared\Enums\UserStatus;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Domain\User\Entities\User>
