@@ -10,9 +10,10 @@ arch('app')
     ->expect(['Shared', 'Domain','Infrastructure','Application','Presentation'])
     ->toUseStrictTypes();
 
-arch('Domain can be accessed by Infrastructure and Application Layers')
+arch('Domain can be accessed by Infrastructure, Application, and Presentation Layers')
     ->expect('Domain')
-    ->toOnlyBeUsedIn(['Infrastructure', 'Application']);
+    ->toOnlyBeUsedIn(['Infrastructure', 'Application', 'Presentation']);
+
 
 arch('Infrastructure should only accessed by Application Layer directly')
     ->expect('Infrastructure')
