@@ -8,7 +8,6 @@ use Application\User\Contracts\UserServiceContract;
 use Application\User\Data\UserData;
 use Domain\User\Repositories\UserRepositoryContract;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class UserService implements UserServiceContract
 {
@@ -21,6 +20,6 @@ class UserService implements UserServiceContract
 
     public function update($id, UserData $userData): bool
     {
-        return DB::transaction(fn(): bool => $this->userRepository->update($id, $userData));
+        return $this->userRepository->update($id, $userData);
     }
 }
