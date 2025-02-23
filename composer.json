@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "laravel-clean-architecture-ddd-cqrs",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Explore Domain-Driven Design and CQRS in Laravel with this clean and scalable architecture template, ideal for complex applications seeking maintainability and clarity.",
+    "keywords": ["laravel", "laravel-clean-architecture-ddd-cqrs", "laravel-clean-architecture", "laravel-clean-architecture-ddd", "laravel-clean-architecture-cqrs", "laravel-cqrs"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
