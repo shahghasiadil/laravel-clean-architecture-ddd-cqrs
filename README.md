@@ -52,7 +52,7 @@ Here are the steps to get your development environment running:
 
 1. Create Project directly via composer:
     ```bash
-     composer create-project shahghasiadil/laravel-clean-architecture-ddd-cqrs
+     composer create-project shahghasiadil/laravel-clean-architecture-ddd-cqrs my-app
     ```
 1. Clone the repository:
     ```bash
