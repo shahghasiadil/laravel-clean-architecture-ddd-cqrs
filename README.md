@@ -45,11 +45,15 @@ Before you begin, ensure you have met the following requirements:
 
 -   PHP [8.2, 8.3, 8.4]
 -   Composer
--   Laravel ^11.0
+-   Laravel [11, 12]
 -   Any other server requirements or dependencies needed to run Laravel.
 
 Here are the steps to get your development environment running:
 
+1. Create Project directly via composer:
+    ```bash
+     composer create-project shahghasiadil/laravel-clean-architecture-ddd-cqrs
+    ```
 1. Clone the repository:
     ```bash
     git clone https://github.com/shahghasiadil/laravel-clean-architecture-ddd-cqrs.git
