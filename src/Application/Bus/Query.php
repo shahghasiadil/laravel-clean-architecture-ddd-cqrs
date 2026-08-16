@@ -4,4 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Bus;
 
-class Query {}
+/**
+ * Marker interface for a read-intent message dispatched through the query bus.
+ *
+ * @template TResult
+ */
+interface Query {}

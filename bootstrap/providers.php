@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     App\Providers\AppServiceProvider::class,
-    Application\Providers\ApplicationServiceProvider::class,
-    Domain\Providers\DomainServiceProvider::class,
+    Shared\Providers\SharedServiceProvider::class,
     Infrastructure\Providers\InfrastructureServiceProvider::class,
+    Application\Providers\ApplicationServiceProvider::class,
 ];

@@ -1,0 +1,14 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Application\{{ module }}\Commands;
+
+use Application\Bus\Command;
+
+final readonly class {{ class }} implements Command
+{
+    public function __construct(
+        // TODO: add the data this command carries
+    ) {}
+}

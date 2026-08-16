@@ -8,7 +8,11 @@ use Application\Bus\Query;
 
 interface QueryBusContract
 {
+    /**
+     * @template TResult
+     *
+     * @param  Query<TResult>  $query
+     * @return TResult
+     */
     public function ask(Query $query): mixed;
-
-    public function register(array $map): void;
 }

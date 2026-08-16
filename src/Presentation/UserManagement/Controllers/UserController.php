@@ -7,62 +7,70 @@ namespace Presentation\UserManagement\Controllers;
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
 use Application\User\Commands\CreateUserCommand;
-use Application\User\Contracts\UserServiceContract;
+use Application\User\Commands\UpdateUserCommand;
 use Application\User\Data\UserData;
-use Application\User\Data\UsersListData;
-use Application\User\Queries\GetUserByEmailQuery;
 use Application\User\Queries\GetUserByIdQuery;
-use Illuminate\Support\Collection;
+use Application\User\Queries\GetUsersQuery;
+use Domain\User\Entities\User;
+use Domain\User\ValueObjects\UserId;
+use Illuminate\Http\JsonResponse;
 use Presentation\Controller;
-use Presentation\UserManagement\Requests\UserFormRequest;
+use Presentation\UserManagement\Requests\IndexUsersRequest;
+use Presentation\UserManagement\Requests\StoreUserRequest;
+use Presentation\UserManagement\Requests\UpdateUserRequest;
+use Presentation\UserManagement\Resources\UserCollection;
+use Presentation\UserManagement\Resources\UserResource;
+use Shared\Domain\Paginated;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     public function __construct(
-        protected CommandBusContract $commandBus,
-        protected QueryBusContract $queryBus,
-        protected UserServiceContract $userService,
+        private readonly CommandBusContract $commandBus,
+        private readonly QueryBusContract $queryBus,
     ) {}
 
-    public function store(UserFormRequest $request): UsersListData
-    {
-
-        $userData = UserData::from($request->validated());
-
-        $email = $this->commandBus->dispatch(
-            new CreateUserCommand($userData),
-        );
-
-        $user = $this->queryBus->ask(
-            new GetUserByEmailQuery($email),
-        );
-
-        return UsersListData::from($user);
-    }
-
-    public function update(int $id, UserFormRequest $request): UsersListData
+    public function store(StoreUserRequest $request): JsonResponse
     {
         $userData = UserData::from($request->validated());
 
-        $this->userService->update($id, $userData);
+        /** @var UserId $id */
+        $id = $this->commandBus->dispatch(new CreateUserCommand($userData));
 
-        $user = $this->queryBus->ask(new GetUserByEmailQuery($request->email));
-
-        return UsersListData::from($user);
-    }
-
-    public function index(): Collection
-    {
-
-        $users = $this->userService->index();
-
-        return UsersListData::collect($users);
-    }
-
-    public function show(int $id): UsersListData
-    {
+        /** @var User $user */
         $user = $this->queryBus->ask(new GetUserByIdQuery($id));
 
-        return UsersListData::from($user);
+        return new UserResource($user)->response()->setStatusCode(201);
+    }
+
+    public function update(int $id, UpdateUserRequest $request): UserResource
+    {
+        $userId = new UserId($id);
+        $userData = UserData::from($request->validated());
+
+        $this->commandBus->dispatch(new UpdateUserCommand($userId, $userData));
+
+        /** @var User $user */
+        $user = $this->queryBus->ask(new GetUserByIdQuery($userId));
+
+        return new UserResource($user);
+    }
+
+    public function index(IndexUsersRequest $request): UserCollection
+    {
+        /** @var Paginated<User> $paginated */
+        $paginated = $this->queryBus->ask(new GetUsersQuery(
+            page: $request->page(),
+            perPage: $request->perPage(),
+        ));
+
+        return new UserCollection($paginated);
+    }
+
+    public function show(int $id): UserResource
+    {
+        /** @var User $user */
+        $user = $this->queryBus->ask(new GetUserByIdQuery(new UserId($id)));
+
+        return new UserResource($user);
     }
 }

@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Application\User\Queries;
 
 use Application\Bus\Query;
+use Domain\User\ValueObjects\EmailAddress;
 
-class GetUserByEmailQuery extends Query
+/**
+ * @implements Query<\Domain\User\Entities\User>
+ */
+final readonly class GetUserByEmailQuery implements Query
 {
     public function __construct(
-        private readonly string $email,
+        public EmailAddress $email,
     ) {}
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
 }

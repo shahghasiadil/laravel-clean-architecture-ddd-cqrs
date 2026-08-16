@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\{{ module }}\Entities;
+
+use Shared\Domain\AggregateRoot;
+
+/**
+ * Plain PHP aggregate root — no Eloquent, no Illuminate. Persistence lives
+ * in Infrastructure\{{ module }}\Persistence, mapped to and from this class.
+ */
+final class {{ class }} extends AggregateRoot
+{
+    private function __construct(
+        // TODO: add value-object-typed properties
+    ) {}
+
+    public static function register(/* TODO: value objects */): self
+    {
+        return new self(/* ... */);
+    }
+}

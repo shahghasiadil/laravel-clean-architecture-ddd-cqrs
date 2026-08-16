@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Application\{{ module }}\Queries;
+
+use Application\Bus\Query;
+
+/**
+ * @implements Query<mixed>
+ */
+final readonly class {{ class }} implements Query
+{
+    public function __construct(
+        // TODO: add the criteria this query carries
+    ) {}
+}

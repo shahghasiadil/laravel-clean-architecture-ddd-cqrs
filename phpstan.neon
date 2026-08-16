@@ -6,9 +6,22 @@ parameters:
 
     paths:
         - src/
+        - app/
+        - database/
 
-    # Level 10 is the highest level
-    level: 5
+    # tests/ is deliberately excluded: Pest's arch()/it() closures rebind
+    # $this dynamically in ways PHPStan can't infer without the dedicated
+    # Pest PHPStan extension, producing wall-to-wall false positives
+    # ("undefined method TestCall::expect()" etc). Standard practice for
+    # Pest projects.
+
+    # Level 10 is the highest level. Raised from 5 as part of the Laravel 13
+    # upgrade; bump further once CI is green at this level with a baseline
+    # covering any pre-existing findings (see docs/UPGRADE-PLAN-LARAVEL-13.md
+    # Phase 12) rather than re-lowering it.
+    level: 6
+
+    tmpDir: bootstrap/cache/phpstan
 
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'

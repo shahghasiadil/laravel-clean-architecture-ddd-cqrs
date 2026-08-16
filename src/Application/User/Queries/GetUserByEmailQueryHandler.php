@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace Application\User\Queries;
 
+use Application\Bus\Attributes\AsQueryHandler;
 use Application\Bus\QueryHandler;
+use Domain\User\Entities\User;
+use Domain\User\Exceptions\UserNotFoundException;
 use Domain\User\Repositories\UserRepositoryContract;
 
-class GetUserByEmailQueryHandler extends QueryHandler
+#[AsQueryHandler(GetUserByEmailQuery::class)]
+final readonly class GetUserByEmailQueryHandler implements QueryHandler
 {
     public function __construct(
-        protected readonly UserRepositoryContract $repository,
+        private UserRepositoryContract $userRepository,
     ) {}
 
-    public function handle(GetUserByEmailQuery $query): ?object
+    public function handle(GetUserByEmailQuery $query): User
     {
-        return $this->repository->findByEmail(
-            $query->getEmail(),
-        );
+        return $this->userRepository->findByEmail($query->email)
+            ?? throw UserNotFoundException::withEmail($query->email->value);
     }
 }
