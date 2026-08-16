@@ -8,6 +8,7 @@ use Application\Bus\Command;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use Shared\Domain\DomainEventCollector;
+use Throwable;
 
 /**
  * Flushes whatever domain events the handler's repository collected while
@@ -25,7 +26,15 @@ final readonly class DispatchesDomainEventsMiddleware
 
     public function handle(Command $command, Closure $next): mixed
     {
-        $result = $next($command);
+        try {
+            $result = $next($command);
+        } catch (Throwable $exception) {
+            // Discard rather than dispatch: the transaction that recorded
+            // these events was rolled back, so they never really happened.
+            $this->collector->release();
+
+            throw $exception;
+        }
 
         foreach ($this->collector->release() as $event) {
             $this->events->dispatch($event);

@@ -36,6 +36,7 @@ final readonly class CreateUserCommandHandler implements CommandHandler
             new UserName($data->name),
             new EmailAddress($data->email),
             new HashedPassword(Hash::make($data->password)),
+            $data->status,
         );
 
         $this->userRepository->save($user);

@@ -74,6 +74,17 @@ it('registers a user and assigns it an id', function (): void {
     expect($repository->findById($id)->password()->value)->not->toBe('plain-text-password');
 });
 
+it('honours the requested status instead of always registering as Active', function (): void {
+    $repository = new InMemoryUserRepository();
+    $handler = new CreateUserCommandHandler($repository);
+
+    $userData = new UserData('Ada Lovelace', 'ada@example.com', UserStatus::Suspended, 'plain-text-password');
+
+    $id = $handler->handle(new CreateUserCommand($userData));
+
+    expect($repository->findById($id)->status())->toBe(UserStatus::Suspended);
+});
+
 it('refuses to register a user without a password', function (): void {
     $repository = new InMemoryUserRepository();
     $handler = new CreateUserCommandHandler($repository);

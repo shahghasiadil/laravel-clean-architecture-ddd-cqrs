@@ -33,9 +33,9 @@ final class User extends AggregateRoot
         private readonly ?DateTimeImmutable $updatedAt = null,
     ) {}
 
-    public static function register(UserName $name, EmailAddress $email, HashedPassword $password): self
+    public static function register(UserName $name, EmailAddress $email, HashedPassword $password, UserStatus $status = UserStatus::Active): self
     {
-        return new self($name, $email, $password, UserStatus::Active);
+        return new self($name, $email, $password, $status);
     }
 
     public static function reconstitute(
