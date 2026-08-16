@@ -14,7 +14,6 @@ use Application\Bus\Middleware\IdempotencyMiddleware;
 use Application\Bus\Middleware\LogsExecutionMiddleware;
 use Application\Bus\Middleware\TransactionalMiddleware;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Foundation\Console\OptimizeCommand;
 use Illuminate\Support\ServiceProvider;
 
 class ApplicationServiceProvider extends ServiceProvider
@@ -48,8 +47,10 @@ class ApplicationServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        OptimizeCommand::extend(fn (): array => [
-            'bus:cache' => 'Application bus handler map',
-        ]);
+        $this->optimizes(
+            optimize: 'bus:cache',
+            clear: 'bus:clear',
+            key: 'bus',
+        );
     }
 }
