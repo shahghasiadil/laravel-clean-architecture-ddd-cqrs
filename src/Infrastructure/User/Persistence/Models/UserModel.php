@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\User\Persistence\Models;
 
+use Carbon\Carbon;
 use Domain\User\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,10 +18,19 @@ use Infrastructure\User\Persistence\Observers\UserObserver;
  * see Domain\User\Entities\User for the framework-free aggregate root and
  * Infrastructure\User\Persistence\Mappers\UserMapper for the translation
  * between the two.
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property UserStatus $status
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 #[ObservedBy([UserObserver::class])]
 class UserModel extends Authenticatable
 {
+    /** @use HasFactory<UserModelFactory> */
     use HasFactory;
     use Notifiable;
 

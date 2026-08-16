@@ -16,6 +16,8 @@ class InfrastructureServiceProvider extends ServiceProvider
     /**
      * Automatically registered by the framework — see
      * Illuminate\Support\ServiceProvider's handling of $singletons.
+     *
+     * @var array<class-string, class-string>
      */
     public $singletons = [
         UserRepositoryContract::class => UserRepository::class,

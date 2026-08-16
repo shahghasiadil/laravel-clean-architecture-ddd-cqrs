@@ -25,6 +25,12 @@ final readonly class IlluminateQueryBus implements QueryBusContract
         private array $middleware = [],
     ) {}
 
+    /**
+     * @template TResult
+     *
+     * @param  Query<TResult>  $query
+     * @return TResult
+     */
     public function ask(Query $query): mixed
     {
         $handlerClass = $this->registry->queryMap()[$query::class]
@@ -36,7 +42,11 @@ final readonly class IlluminateQueryBus implements QueryBusContract
             ->then(function (Query $query) use ($handlerClass): mixed {
                 $handler = $this->container->make($handlerClass);
 
-                return $handler->handle($query); // @phpstan-ignore-line
+                // Handlers implement handle() by convention rather than by
+                // interface method: a single QueryHandler#handle() signature
+                // can't accept every concrete Query subtype (PHP forbids
+                // narrowing parameter types across an interface boundary).
+                return $handler->handle($query);
             });
     }
 }

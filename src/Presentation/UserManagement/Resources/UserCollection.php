@@ -16,6 +16,9 @@ final class UserCollection extends ResourceCollection
 {
     public $collects = UserResource::class;
 
+    /**
+     * @param  Paginated<User>  $paginated
+     */
     public function __construct(
         private readonly Paginated $paginated,
     ) {

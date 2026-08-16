@@ -7,11 +7,11 @@ namespace Shared\Domain\ValueObject;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 use Shared\Domain\Exceptions\InvalidValueObjectException;
 
-class Uuid extends StringValueObject
+final class Uuid extends StringValueObject
 {
-    public static function generate(): static
+    public static function generate(): self
     {
-        return new static(RamseyUuid::uuid4()->toString());
+        return new self(RamseyUuid::uuid4()->toString());
     }
 
     protected function guard(string $value): void

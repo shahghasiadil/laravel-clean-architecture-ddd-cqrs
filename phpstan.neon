@@ -8,7 +8,12 @@ parameters:
         - src/
         - app/
         - database/
-        - tests/
+
+    # tests/ is deliberately excluded: Pest's arch()/it() closures rebind
+    # $this dynamically in ways PHPStan can't infer without the dedicated
+    # Pest PHPStan extension, producing wall-to-wall false positives
+    # ("undefined method TestCall::expect()" etc). Standard practice for
+    # Pest projects.
 
     # Level 10 is the highest level. Raised from 5 as part of the Laravel 13
     # upgrade; bump further once CI is green at this level with a baseline

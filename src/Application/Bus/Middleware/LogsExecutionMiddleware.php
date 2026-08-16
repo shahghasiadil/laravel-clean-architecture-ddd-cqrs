@@ -15,6 +15,9 @@ final readonly class LogsExecutionMiddleware
         private LoggerInterface $logger,
     ) {}
 
+    /**
+     * @param  Command|Query<mixed>  $message
+     */
     public function handle(Command|Query $message, Closure $next): mixed
     {
         $start = microtime(true);

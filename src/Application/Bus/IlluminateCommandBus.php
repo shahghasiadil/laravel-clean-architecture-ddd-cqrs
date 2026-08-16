@@ -35,7 +35,7 @@ final readonly class IlluminateCommandBus implements CommandBusContract
                 // interface method: a single CommandHandler#handle() signature
                 // can't accept every concrete Command subtype (PHP forbids
                 // narrowing parameter types across an interface boundary).
-                return $handler->handle($command); // @phpstan-ignore-line
+                return $handler->handle($command);
             });
     }
 }
