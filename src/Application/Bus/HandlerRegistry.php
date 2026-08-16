@@ -124,7 +124,7 @@ final class HandlerRegistry
             // still resolve via the PSR-4 autoloader — which requires the
             // file regardless of what's in it, running top-level code like
             // Route::group() outside of any app context.
-            if (! $this->declaresClass($realPath)) {
+            if ( ! $this->declaresClass($realPath)) {
                 continue;
             }
 
@@ -158,13 +158,13 @@ final class HandlerRegistry
         $tokens = token_get_all((string) file_get_contents($path));
 
         foreach ($tokens as $i => $token) {
-            if (! is_array($token) || ! in_array($token[0], [T_CLASS, T_INTERFACE, T_ENUM], true)) {
+            if ( ! is_array($token) || ! in_array($token[0], [T_CLASS, T_INTERFACE, T_ENUM], true)) {
                 continue;
             }
 
             $previous = $tokens[$i - 1] ?? null;
 
-            if (is_array($previous) && $previous[0] === T_DOUBLE_COLON) {
+            if (is_array($previous) && T_DOUBLE_COLON === $previous[0]) {
                 continue; // Foo::class, not a declaration.
             }
 
