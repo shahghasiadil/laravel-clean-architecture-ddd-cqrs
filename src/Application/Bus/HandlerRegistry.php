@@ -117,7 +117,18 @@ final class HandlerRegistry
         }
 
         foreach (new Finder()->files()->in($this->sourcePath)->name('*.php') as $file) {
-            $class = $this->classFromPath($file->getRealPath());
+            $realPath = $file->getRealPath();
+
+            // Not every .php file under src/ declares a class (routes files,
+            // for instance). Guessing wrong and calling class_exists() would
+            // still resolve via the PSR-4 autoloader — which requires the
+            // file regardless of what's in it, running top-level code like
+            // Route::group() outside of any app context.
+            if (! $this->declaresClass($realPath)) {
+                continue;
+            }
+
+            $class = $this->classFromPath($realPath);
 
             if (null === $class || ! class_exists($class)) {
                 continue;
@@ -135,6 +146,32 @@ final class HandlerRegistry
         }
 
         return ['commands' => $commands, 'queries' => $queries];
+    }
+
+    /**
+     * True if the file has a top-level class/interface/enum declaration —
+     * checked via tokens rather than a content regex so a "Foo::class"
+     * reference elsewhere in the file can't produce a false positive.
+     */
+    private function declaresClass(string $path): bool
+    {
+        $tokens = token_get_all((string) file_get_contents($path));
+
+        foreach ($tokens as $i => $token) {
+            if (! is_array($token) || ! in_array($token[0], [T_CLASS, T_INTERFACE, T_ENUM], true)) {
+                continue;
+            }
+
+            $previous = $tokens[$i - 1] ?? null;
+
+            if (is_array($previous) && $previous[0] === T_DOUBLE_COLON) {
+                continue; // Foo::class, not a declaration.
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     private function classFromPath(string $realPath): ?string
