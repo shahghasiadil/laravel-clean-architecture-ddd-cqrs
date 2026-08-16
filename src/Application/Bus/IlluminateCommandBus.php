@@ -25,7 +25,7 @@ final readonly class IlluminateCommandBus implements CommandBusContract
         $handlerClass = $this->registry->commandMap()[$command::class]
             ?? throw HandlerNotFoundException::forCommand($command::class);
 
-        return (new Pipeline($this->container))
+        return new Pipeline($this->container)
             ->send($command)
             ->through($this->middleware)
             ->then(function (Command $command) use ($handlerClass): mixed {

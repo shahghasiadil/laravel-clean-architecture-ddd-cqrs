@@ -36,7 +36,7 @@ final readonly class IlluminateQueryBus implements QueryBusContract
         $handlerClass = $this->registry->queryMap()[$query::class]
             ?? throw HandlerNotFoundException::forQuery($query::class);
 
-        return (new Pipeline($this->container))
+        return new Pipeline($this->container)
             ->send($query)
             ->through($this->middleware)
             ->then(function (Query $query) use ($handlerClass): mixed {

@@ -13,11 +13,11 @@ use Infrastructure\User\Persistence\Models\UserModel;
 use Shared\Domain\DomainEventCollector;
 use Shared\Domain\Paginated;
 
-final class UserRepository implements UserRepositoryContract
+final readonly class UserRepository implements UserRepositoryContract
 {
     public function __construct(
-        private readonly UserMapper $mapper,
-        private readonly DomainEventCollector $events,
+        private UserMapper $mapper,
+        private DomainEventCollector $events,
     ) {}
 
     public function save(User $user): void
@@ -53,7 +53,7 @@ final class UserRepository implements UserRepositoryContract
 
         return new Paginated(
             items: array_map(
-                fn(UserModel $model): User => $this->mapper->toDomain($model),
+                $this->mapper->toDomain(...),
                 $paginator->items(),
             ),
             total: $paginator->total(),

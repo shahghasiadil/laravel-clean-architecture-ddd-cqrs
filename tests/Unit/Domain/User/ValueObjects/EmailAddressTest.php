@@ -10,10 +10,10 @@ it('accepts a valid email address', function (): void {
 });
 
 it('rejects an invalid email address', function (): void {
-    expect(fn() => new EmailAddress('not-an-email'))->toThrow(InvalidValueObjectException::class);
+    expect(fn(): EmailAddress => new EmailAddress('not-an-email'))->toThrow(InvalidValueObjectException::class);
 });
 
 it('two value objects with the same value are equal', function (): void {
-    expect((new EmailAddress('ada@example.com'))->equals(new EmailAddress('ada@example.com')))->toBeTrue();
-    expect((new EmailAddress('ada@example.com'))->equals(new EmailAddress('grace@example.com')))->toBeFalse();
+    expect(new EmailAddress('ada@example.com')->equals(new EmailAddress('ada@example.com')))->toBeTrue();
+    expect(new EmailAddress('ada@example.com')->equals(new EmailAddress('grace@example.com')))->toBeFalse();
 });

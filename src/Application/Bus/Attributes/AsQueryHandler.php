@@ -7,12 +7,12 @@ namespace Application\Bus\Attributes;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-final class AsQueryHandler
+final readonly class AsQueryHandler
 {
     /**
      * @param  class-string  $query
      */
     public function __construct(
-        public readonly string $query,
+        public string $query,
     ) {}
 }

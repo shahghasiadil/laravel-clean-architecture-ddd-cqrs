@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\JsonResponse;
 use Presentation\Http\ProblemDetails;
 use Shared\Domain\Exceptions\ConcurrencyException;
 use Shared\Domain\Exceptions\DomainValidationException;
@@ -23,8 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ])
     ->withMiddleware(function (Middleware $middleware): void {})
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(fn(EntityNotFoundException $e) => ProblemDetails::response($e, 404, 'Not Found'));
-        $exceptions->render(fn(DomainValidationException $e) => ProblemDetails::response($e, 422, 'Unprocessable Entity'));
-        $exceptions->render(fn(ConcurrencyException $e) => ProblemDetails::response($e, 409, 'Conflict'));
-        $exceptions->render(fn(AuthorizationException $e) => ProblemDetails::response($e, 403, 'Forbidden'));
+        $exceptions->render(fn(EntityNotFoundException $e): JsonResponse => ProblemDetails::response($e, 404, 'Not Found'));
+        $exceptions->render(fn(DomainValidationException $e): JsonResponse => ProblemDetails::response($e, 422, 'Unprocessable Entity'));
+        $exceptions->render(fn(ConcurrencyException $e): JsonResponse => ProblemDetails::response($e, 409, 'Conflict'));
+        $exceptions->render(fn(AuthorizationException $e): JsonResponse => ProblemDetails::response($e, 403, 'Forbidden'));
     })->create();

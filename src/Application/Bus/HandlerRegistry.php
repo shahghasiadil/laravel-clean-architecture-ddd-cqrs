@@ -116,7 +116,7 @@ final class HandlerRegistry
             return ['commands' => $commands, 'queries' => $queries];
         }
 
-        foreach ((new Finder())->files()->in($this->sourcePath)->name('*.php') as $file) {
+        foreach (new Finder()->files()->in($this->sourcePath)->name('*.php') as $file) {
             $class = $this->classFromPath($file->getRealPath());
 
             if (null === $class || ! class_exists($class)) {

@@ -18,17 +18,17 @@ use Infrastructure\User\Persistence\Models\UserModel;
  */
 final class UserPolicy
 {
-    public function viewAny(UserModel $actor): bool
+    public function viewAny(): bool
     {
         return true;
     }
 
-    public function view(UserModel $actor, UserModel $target): bool
+    public function view(): bool
     {
         return true;
     }
 
-    public function create(UserModel $actor): bool
+    public function create(): bool
     {
         return true;
     }

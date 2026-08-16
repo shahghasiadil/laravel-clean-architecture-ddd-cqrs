@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Shared\Domain\ValueObject;
 
-abstract class StringValueObject implements ValueObject
+use Stringable;
+
+abstract class StringValueObject implements ValueObject, Stringable
 {
     public function __construct(
         public readonly string $value,

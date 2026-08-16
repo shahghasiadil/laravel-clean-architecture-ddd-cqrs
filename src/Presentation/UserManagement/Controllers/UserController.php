@@ -39,7 +39,7 @@ final class UserController extends Controller
         /** @var User $user */
         $user = $this->queryBus->ask(new GetUserByIdQuery($id));
 
-        return (new UserResource($user))->response()->setStatusCode(201);
+        return new UserResource($user)->response()->setStatusCode(201);
     }
 
     public function update(int $id, UpdateUserRequest $request): UserResource

@@ -90,6 +90,6 @@ it('refuses to register a user without a password', function (): void {
 
     $userData = new UserData('Ada Lovelace', 'ada@example.com', UserStatus::Active, new Optional());
 
-    expect(fn() => $handler->handle(new CreateUserCommand($userData)))
+    expect(fn(): UserId => $handler->handle(new CreateUserCommand($userData)))
         ->toThrow(DomainValidationException::class);
 });
