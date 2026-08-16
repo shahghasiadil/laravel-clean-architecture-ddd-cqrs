@@ -4,4 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Bus;
 
-class CommandHandler {}
+/**
+ * Marker interface for a class that handles exactly one Command.
+ */
+interface CommandHandler {}

@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Application\User\Queries;
 
 use Application\Bus\Query;
+use Domain\User\ValueObjects\UserId;
 
-class GetUserByIdQuery extends Query
+/**
+ * @implements Query<\Domain\User\Entities\User>
+ */
+final readonly class GetUserByIdQuery implements Query
 {
     public function __construct(
-        private readonly int $id,
+        public UserId $id,
     ) {}
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
 }

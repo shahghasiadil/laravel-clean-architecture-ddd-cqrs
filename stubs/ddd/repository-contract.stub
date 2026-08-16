@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\{{ module }}\Repositories;
+
+use Domain\{{ module }}\Entities\{{ entity }};
+
+interface {{ class }}
+{
+    public function save({{ entity }} ${{ entityVariable }}): void;
+
+    // TODO: add the finder methods this bounded context needs, e.g.:
+    // public function findById(SomeId $id): ?{{ entity }};
+}

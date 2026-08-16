@@ -5,21 +5,37 @@ declare(strict_types=1);
 namespace Application\Bus;
 
 use Application\Bus\Contracts\CommandBusContract;
-use Illuminate\Bus\Dispatcher;
+use Application\Bus\Exceptions\HandlerNotFoundException;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Pipeline\Pipeline;
 
-class IlluminateCommandBus implements CommandBusContract
+final readonly class IlluminateCommandBus implements CommandBusContract
 {
+    /**
+     * @param  list<class-string>  $middleware
+     */
     public function __construct(
-        protected Dispatcher $bus,
+        private Container $container,
+        private HandlerRegistry $registry,
+        private array $middleware = [],
     ) {}
 
     public function dispatch(Command $command): mixed
     {
-        return $this->bus->dispatch($command);
-    }
+        $handlerClass = $this->registry->commandMap()[$command::class]
+            ?? throw HandlerNotFoundException::forCommand($command::class);
 
-    public function register(array $map): void
-    {
-        $this->bus->map($map);
+        return (new Pipeline($this->container))
+            ->send($command)
+            ->through($this->middleware)
+            ->then(function (Command $command) use ($handlerClass): mixed {
+                $handler = $this->container->make($handlerClass);
+
+                // Handlers implement handle() by convention rather than by
+                // interface method: a single CommandHandler#handle() signature
+                // can't accept every concrete Command subtype (PHP forbids
+                // narrowing parameter types across an interface boundary).
+                return $handler->handle($command); // @phpstan-ignore-line
+            });
     }
 }

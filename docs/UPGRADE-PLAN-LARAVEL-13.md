@@ -1,8 +1,15 @@
 # Laravel 13 Upgrade & Architecture Hardening Plan
 
-Status: **proposed** — nothing in this document has been implemented yet.
-Target branch: `claude/laravel-13-upgrade-plan-r88cxx`
+Status: **implemented** — Phases 1–12 below have been applied on this branch.
 Audit date: 2026-08-16, against commit `2fccb7e`.
+
+> Note on local verification: this environment's outbound proxy blocks
+> unauthenticated `api.github.com` zipball downloads, which is how
+> `spatie/*` packages (including the required `spatie/laravel-data`)
+> distribute — so `composer install` could not fully populate `vendor/`
+> here. `composer.lock` was regenerated and does resolve correctly; every
+> new file was validated with `php -l`. A real CI runner (GitHub Actions)
+> has full GitHub access and is not affected by this.
 
 ---
 

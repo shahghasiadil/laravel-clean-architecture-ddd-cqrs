@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Application\{{ module }}\CommandHandlers;
+
+use Application\Bus\Attributes\AsCommandHandler;
+use Application\Bus\CommandHandler;
+use Application\{{ module }}\Commands\{{ command }};
+
+#[AsCommandHandler({{ command }}::class)]
+final readonly class {{ class }} implements CommandHandler
+{
+    public function __construct(
+        // TODO: inject the repository contract(s) this handler needs
+    ) {}
+
+    public function handle({{ command }} $command): void
+    {
+        // TODO: load/mutate the aggregate and persist it via the repository
+    }
+}

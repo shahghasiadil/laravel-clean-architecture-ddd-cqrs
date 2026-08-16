@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\{{ module }}\ValueObjects;
+
+use Shared\Domain\Exceptions\InvalidValueObjectException;
+use Shared\Domain\ValueObject\{{ baseClass }};
+
+final class {{ class }} extends {{ baseClass }}
+{
+    protected function guard({{ paramType }} $value): void
+    {
+        // TODO: enforce this value object's invariants, e.g.:
+        // if (...) {
+        //     throw new InvalidValueObjectException('...');
+        // }
+    }
+}

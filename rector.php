@@ -12,6 +12,7 @@ return RectorConfig::configure()
         __DIR__ . '/database',
         __DIR__ . '/public',
         __DIR__ . '/src',
+        __DIR__ . '/tests',
     ])
     ->withPreparedSets(
         deadCode: true,

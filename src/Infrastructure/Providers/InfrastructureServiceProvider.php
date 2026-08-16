@@ -5,11 +5,18 @@ declare(strict_types=1);
 namespace Infrastructure\Providers;
 
 use Domain\User\Repositories\UserRepositoryContract;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Infrastructure\User\Persistence\Models\UserModel;
+use Infrastructure\User\Persistence\Policies\UserPolicy;
 use Infrastructure\User\Persistence\Repositories\UserRepository;
 
 class InfrastructureServiceProvider extends ServiceProvider
 {
+    /**
+     * Automatically registered by the framework — see
+     * Illuminate\Support\ServiceProvider's handling of $singletons.
+     */
     public $singletons = [
         UserRepositoryContract::class => UserRepository::class,
     ];
@@ -18,17 +25,6 @@ class InfrastructureServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Infrastructure-specific bootstrapping
-    }
-
-
-    /**
-     * Register the bindings specified in the singletons array.
-     */
-    protected function registerSingletons(): void
-    {
-        foreach ($this->singletons as $interface => $implementation) {
-            $this->app->singleton($interface, $implementation);
-        }
+        Gate::policy(UserModel::class, UserPolicy::class);
     }
 }

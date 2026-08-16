@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Application\{{ module }}\Queries;
+
+use Application\Bus\Attributes\AsQueryHandler;
+use Application\Bus\QueryHandler;
+
+#[AsQueryHandler({{ query }}::class)]
+final readonly class {{ class }} implements QueryHandler
+{
+    public function __construct(
+        // TODO: inject the repository contract(s) this handler needs
+    ) {}
+
+    public function handle({{ query }} $query): mixed
+    {
+        // TODO: read and return the requested data
+    }
+}

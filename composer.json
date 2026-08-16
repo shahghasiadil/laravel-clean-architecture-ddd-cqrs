@@ -12,22 +12,23 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
-        "laravel/framework": "^12.0",
-        "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9",
-        "spatie/laravel-data": "^4.13"
+        "php": "^8.4",
+        "laravel/framework": "^13.0",
+        "laravel/sanctum": "^4.3",
+        "laravel/tinker": "^3.0",
+        "spatie/laravel-data": "^4.23"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
-        "larastan/larastan": "^3.0",
-        "laravel/pint": "^1.13",
-        "laravel/sail": "^1.26",
+        "fakerphp/faker": "^1.24",
+        "larastan/larastan": "^3.10",
+        "laravel/pint": "^1.30",
+        "laravel/sail": "^1.46",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.0",
-       "pestphp/pest": "^3.7",
-        "rector/rector": "*",
-        "spatie/laravel-ignition": "^2.4"
+        "nunomaduro/collision": "^8.9",
+        "pestphp/pest": "^5.0",
+        "pestphp/pest-plugin-laravel": "^5.0",
+        "rector/rector": "^2.6",
+        "spatie/laravel-ignition": "^2.9"
     },
     "autoload": {
         "psr-4": {
@@ -47,6 +48,18 @@
         }
     },
     "scripts": {
+        "test": "pest --parallel",
+        "test:coverage": "pest --parallel --coverage --min=80",
+        "lint": "pint",
+        "analyse": "phpstan analyse",
+        "refactor": "rector process",
+        "mutate": "pest --mutate --parallel --min=60",
+        "check": [
+            "@lint -- --test",
+            "@analyse",
+            "@refactor -- --dry-run",
+            "@test"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

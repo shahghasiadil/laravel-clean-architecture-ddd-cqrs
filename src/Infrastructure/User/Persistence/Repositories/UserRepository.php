@@ -4,43 +4,70 @@ declare(strict_types=1);
 
 namespace Infrastructure\User\Persistence\Repositories;
 
-use Application\User\Data\UserData;
 use Domain\User\Entities\User;
 use Domain\User\Repositories\UserRepositoryContract;
-use Illuminate\Database\Eloquent\Collection;
+use Domain\User\ValueObjects\EmailAddress;
+use Domain\User\ValueObjects\UserId;
+use Infrastructure\User\Persistence\Mappers\UserMapper;
+use Infrastructure\User\Persistence\Models\UserModel;
+use Shared\Domain\DomainEventCollector;
+use Shared\Domain\Paginated;
 
 final class UserRepository implements UserRepositoryContract
 {
-    public function save(UserData $data): string
-    {
-        $user = User::create($data->all());
+    public function __construct(
+        private readonly UserMapper $mapper,
+        private readonly DomainEventCollector $events,
+    ) {}
 
-        return $user->email;
+    public function save(User $user): void
+    {
+        $model = $this->modelFor($user);
+        $model->fill($this->mapper->toAttributes($user));
+        $model->save();
+
+        if ($model->wasRecentlyCreated) {
+            $user->assignId(new UserId($model->id));
+        }
+
+        $this->events->push(...$user->releaseEvents());
     }
 
-    public function findByEmail(string $email): ?User
+    public function findByEmail(EmailAddress $email): ?User
     {
-        $user = User::where('email', $email)->first();
+        $model = UserModel::query()->where('email', $email->value)->first();
 
-        return $user ?? null;
+        return $model instanceof UserModel ? $this->mapper->toDomain($model) : null;
     }
 
-    public function findById(int $id): ?User
+    public function findById(UserId $id): ?User
     {
-        $user = User::where('id', $id)->first();
+        $model = UserModel::query()->find($id->value);
 
-        return $user ?? null;
+        return $model instanceof UserModel ? $this->mapper->toDomain($model) : null;
     }
 
-    public function getAllUsers(): Collection
+    public function paginate(int $page, int $perPage): Paginated
     {
-        return User::all();
+        $paginator = UserModel::query()->paginate(perPage: $perPage, page: $page);
+
+        return new Paginated(
+            items: array_map(
+                fn (UserModel $model): User => $this->mapper->toDomain($model),
+                $paginator->items(),
+            ),
+            total: $paginator->total(),
+            perPage: $paginator->perPage(),
+            page: $paginator->currentPage(),
+        );
     }
 
-    public function update(int $id, UserData $data): bool
+    private function modelFor(User $user): UserModel
     {
-        $user = User::findOrFail($id);
+        if (! $user->hasId()) {
+            return new UserModel();
+        }
 
-        return $user->update($data->all());
+        return UserModel::query()->findOrFail($user->id()->value);
     }
 }

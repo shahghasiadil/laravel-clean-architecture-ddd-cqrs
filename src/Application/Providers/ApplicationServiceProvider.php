@@ -6,60 +6,50 @@ namespace Application\Providers;
 
 use Application\Bus\Contracts\CommandBusContract;
 use Application\Bus\Contracts\QueryBusContract;
+use Application\Bus\HandlerRegistry;
 use Application\Bus\IlluminateCommandBus;
 use Application\Bus\IlluminateQueryBus;
-use Application\User\CommandHandlers\CreateUserCommandHandler;
-use Application\User\Commands\CreateUserCommand;
-use Application\User\Contracts\UserServiceContract;
-use Application\User\Queries\GetUserByEmailQuery;
-use Application\User\Queries\GetUserByEmailQueryHandler;
-use Application\User\Queries\GetUserByIdQuery;
-use Application\User\Queries\GetUserByIdQueryHandler;
-use Application\User\Services\UserService;
+use Application\Bus\Middleware\DispatchesDomainEventsMiddleware;
+use Application\Bus\Middleware\IdempotencyMiddleware;
+use Application\Bus\Middleware\LogsExecutionMiddleware;
+use Application\Bus\Middleware\TransactionalMiddleware;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Foundation\Console\OptimizeCommand;
 use Illuminate\Support\ServiceProvider;
 
 class ApplicationServiceProvider extends ServiceProvider
 {
-    /**
-     * All of the container bindings that should be registered.
-     *
-     * @var array
-     */
-    public $bindings = [];
+    public function register(): void
+    {
+        $this->app->singleton(HandlerRegistry::class, fn (): HandlerRegistry => new HandlerRegistry(
+            sourcePath: base_path('src'),
+            cacheFile: base_path('bootstrap/cache/handlers.php'),
+        ));
 
-    /**
-     * All of the container singletons that should be registered.
-     *
-     * @var array
-     */
-    public $singletons = [
-        CommandBusContract::class => IlluminateCommandBus::class,
-        QueryBusContract::class => IlluminateQueryBus::class,
-        UserServiceContract::class => UserService::class,
-    ];
+        $this->app->singleton(CommandBusContract::class, fn (Container $app): IlluminateCommandBus => new IlluminateCommandBus(
+            container: $app,
+            registry: $app->make(HandlerRegistry::class),
+            middleware: [
+                LogsExecutionMiddleware::class,
+                DispatchesDomainEventsMiddleware::class,
+                IdempotencyMiddleware::class,
+                TransactionalMiddleware::class,
+            ],
+        ));
 
-    public function register(): void {}
+        $this->app->singleton(QueryBusContract::class, fn (Container $app): IlluminateQueryBus => new IlluminateQueryBus(
+            container: $app,
+            registry: $app->make(HandlerRegistry::class),
+            middleware: [
+                LogsExecutionMiddleware::class,
+            ],
+        ));
+    }
 
     public function boot(): void
     {
-        $this->registerCommandHandlers();
-        $this->registerQueryHandlers();
-    }
-
-    protected function registerCommandHandlers(): void
-    {
-        $commandBus = app(CommandBusContract::class);
-        $commandBus->register([
-            CreateUserCommand::class => CreateUserCommandHandler::class,
-        ]);
-    }
-
-    protected function registerQueryHandlers(): void
-    {
-        $queryBus = app(QueryBusContract::class);
-        $queryBus->register([
-            GetUserByEmailQuery::class => GetUserByEmailQueryHandler::class,
-            GetUserByIdQuery::class => GetUserByIdQueryHandler::class,
+        OptimizeCommand::extend(fn (): array => [
+            'bus:cache' => 'Application bus handler map',
         ]);
     }
 }

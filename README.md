@@ -34,7 +34,7 @@ This project is designed for developers and teams looking to leverage advanced a
 ## Why Choose This Project Over Others?
 
 -   **Advanced Clean Architecture**: Compared to traditional MVC or other Laravel projects, this framework integrates Clean Architecture principles more rigorously, promoting a high degree of independence between the domain logic, UI, and database.
--   **Optimized for Laravel 11 & 12**: Utilizes the latest features of Laravel 11 & 12, offering a more advanced toolkit for dependency injection, queue management, and real-time event handling, which are essential for modern web applications.
+-   **Optimized for Laravel 13**: Utilizes the latest features of Laravel 13, offering a more advanced toolkit for dependency injection, queue management, and real-time event handling, which are essential for modern web applications.
 -   **Enhanced DDD Implementation**: Provides a deeper implementation of Domain-Driven Design than typical repositories, focusing on complex domain logic and ensuring that business rules are encapsulated within domain entities.
 -   **CQRS-Ready**: Includes a built-in structure for Command Query Responsibility Segregation, optimizing read and write operations for better performance and scalability compared to conventional Laravel architectures.
 -   **Service Layer Alternative**: Alongside CQRS, the project also supports a robust Service Layer architecture, providing an alternative approach for those preferring a more traditional but equally structured pattern for handling business logic and application services.
@@ -43,9 +43,9 @@ This project is designed for developers and teams looking to leverage advanced a
 
 Before you begin, ensure you have met the following requirements:
 
--   PHP [8.2, 8.3, 8.4]
+-   PHP [8.4, 8.5]
 -   Composer
--   Laravel [11, 12]
+-   Laravel 13
 -   Any other server requirements or dependencies needed to run Laravel.
 
 Here are the steps to get your development environment running:
@@ -67,99 +67,96 @@ The project follows a modular architecture based on Clean Architecture principle
 src/
 ├── Application/
 │ ├── Bus/
+│ │ ├──── Attributes/        # #[AsCommandHandler]/#[AsQueryHandler] — handler discovery
+│ │ ├──── Exceptions/
+│ │ └──── Middleware/        # Transactional, logging, domain events, idempotency
 │ ├── Providers/
 │ └── User/
 │ ├──── CommandHandlers/
 │ ├──── Commands/
-│ ├──── Contracts/
-│ ├──── Data/
-│ ├──── Queries/
-│ └──── Services/
-├── Domain/
-│ ├── Providers/
+│ ├──── Data/                # DTOs (Spatie Laravel Data)
+│ └──── Queries/             # Queries and their handlers
+├── Domain/                  # Framework-free — no Illuminate, no Eloquent
 │ ├── Common/
-│ ├──── Enums/
-│ ├──── Traits/
+│ │ ├──── Enums/
+│ │ └──── Traits/
 │ └── User/
+│ ├──── Entities/            # Plain PHP aggregate root
 │ ├──── Enums/
-│ ├──── Entities/
 │ ├──── Events/
 │ ├──── Exceptions/
-│ ├──── Observers/
-│ ├──── Policies/
-│ └──── Repositories/
+│ ├──── Policies/            # Domain-level invariants (Laravel Gate policies live in Infrastructure)
+│ ├──── Repositories/        # Contracts only — speak in aggregates and value objects
+│ └──── ValueObjects/
 ├── Infrastructure/
 │ ├── Providers/
 │ └── User/
 │ ├──── Jobs/
-│ ├──── Notifications/
 │ └──── Persistence/
-│ └──────── Repositories/
+│ ├──────── Factories/       # Eloquent model factories
+│ ├──────── Mappers/         # Aggregate <-> Eloquent model translation
+│ ├──────── Models/          # Eloquent models
+│ ├──────── Observers/
+│ ├──────── Policies/        # Laravel Gate policies (bind to the Eloquent model)
+│ └──────── Repositories/    # Repository contract implementations
 ├── Presentation/
+│ ├── Console/                # make:module and friends — see Generators below
+│ ├── Http/                   # RFC 9457 problem-details rendering
 │ └── UserManagement/
 │ ├──── Controllers/
 │ ├──── Middlewares/
 │ ├──── Requests/
-│ ├──── Resources/
+│ ├──── Resources/            # JsonResource / ResourceCollection — the response envelope
 │ └──── routes/
-│ └── Controller.php
-└── Shared/
-├──── Contracts/
-├──── Enums/
-└──── Traits/
+└── Shared/                   # Framework-free (except Providers) — usable from every layer
+├──── Criteria/               # Persistence-agnostic query specification
+├──── Domain/                 # AggregateRoot, DomainEvent, ValueObject bases, Paginated, exceptions
+└──── Providers/
 ```
 
 ### Description of Layers
 
--   **Application**: Manages the application logic and orchestrates the flow of data between the domain and presentation layers. This layer includes:
+-   **Application**: Orchestrates the flow of data between the Domain and Presentation layers via a CQRS bus.
 
-    -   `Bus`: Responsible for dispatching commands and queries to the appropriate handlers.
-    -   `Providers`: Service providers specific to the application layer, registering application-specific services and dependencies.
-    -   `User`: Contains all user-related business logic, divided into:
-        -   `CommandHandlers`: Handles commands related to user actions.
-        -   `Commands`: CQRS commands for user-related operations.
-        -   `Contracts`: Interface definitions for services and repositories dealing with user data.
-        -   `Data`: Data transfer objects (DTOs) that carry data between processes we are using Spatie Laravel Data Package.
-        -   `Queries`: CQRS queries for retrieving user data.
-        -   `Services`: Services that execute business logic and use cases related to users.
+    -   `Bus`: The command and query buses. Handlers are discovered by scanning for `#[AsCommandHandler]`/`#[AsQueryHandler]` attributes (see `Application\Bus\HandlerRegistry`) rather than hand-maintained in a provider — the map is cached to `bootstrap/cache/handlers.php` via `php artisan bus:cache`. Both buses run their dispatch through an `Illuminate\Pipeline` of middleware: logging always, plus (commands only) domain-event publishing, opt-in idempotency, and a database transaction.
+    -   `User`: Commands/queries and their handlers for the User bounded context, plus the `UserData` write-side DTO.
 
--   **Domain**: The heart of the business logic, defining entities, value objects, and domain events.
+-   **Domain**: The business logic — entities, value objects, domain events, and repository contracts — with zero framework dependency, enforced by an architecture test. `User` (the aggregate) is a plain PHP class; the Eloquent model lives in Infrastructure and is mapped to/from it.
 
-    -   `Providers`: Domain-level service providers that bind interfaces to implementations within the domain scope.
-    -   `Common`: Shared utilities and components that span across multiple domains:
-        -   `Enums`: Cross-domain enumerations defining shared constants and states.
-        -   `Traits`: Reusable traits that provide common functionality across various domains.
-    -   `User`: Domain logic and entities specific to user management, including:
-        -   `Entities`: Domain models representing users.
-        -   `Enums`: User-specific enumerations that define states or types relevant to user management.
-        -   `Events`: Events that are domain-specific and might trigger domain actions.
-        -   `Exceptions`: Custom exceptions for domain-specific error handling.
-        -   `Observers`: Observers for watching changes in domain entities.
-        -   `Policies`: Security policies related to user entities.
-        -   `Repositories`: Interfaces for user repository implementations.
+-   **Infrastructure**: Implements the Domain's repository contracts and owns everything Eloquent: models, factories, observers, and the mapper that translates between the aggregate and the persistence model. Also holds the Laravel Gate policy, since policies bind to the framework's auth model.
 
--   **Infrastructure**: Implements the interfaces defined by the domain layer, dealing with data persistence and external systems.
+-   **Presentation**: The delivery layer — HTTP controllers, form requests, and API resources that shape the response envelope — plus `Console` (the `make:*` generator commands) and `Http` (the RFC 9457 problem-details renderer wired in `bootstrap/app.php`).
 
-    -   `Providers`: Infrastructure-level service providers that register infrastructure-specific services and dependencies.
-    -   `User`: Infrastructure logic specific to user management, including:
-        -   `Jobs`: Background jobs for asynchronous user tasks.
-        -   `Notifications`: Notification services to handle alerts and communications.
-        -   `Persistence`: Persistence mechanisms for user data, including:
-            -   `Repositories`: Concrete implementations of user repository interfaces.
+-   **Shared**: Cross-cutting primitives available to every layer — `AggregateRoot`, `DomainEvent`, the value-object base classes, `Paginated`, the Domain exception hierarchy, and `Criteria` for persistence-agnostic querying. Framework-free except `Shared\Providers`.
 
--   **Presentation**: Manages the delivery mechanisms, dealing with how the application is presented to the end user (APIs, web UI, etc.).
+## Generators
 
-    -   `UserManagement`: Presentation logic specifically for managing users, including:
-        -   `Controllers`: Controllers to handle incoming API requests and deliver appropriate responses.
-        -   `Middlewares`: Middleware to handle request filtering and pre/post processing.
-        -   `Requests`: Form requests for validating user-related data.
-        -   `Resources`: Resources and transformers that format domain data into user-friendly formats.
-        -   `routes`: Routing configurations that direct incoming requests to the appropriate controllers.
+Scaffolding a new bounded context by hand means copying ~15 files. These commands do it instead:
 
--   **Shared**: Contains elements that are used across multiple layers, providing cross-cutting functionality.
-    -   `Contracts`: Shared interface definitions that might be used by many components.
-    -   `Enums`: Enumerations that provide a set of constants for use throughout the application.
-    -   `Traits`: Reusable traits that provide utility functions or methods to multiple classes.
+```bash
+php artisan make:module Billing            # full slice: aggregate, repository contract, one command, one query, routes
+php artisan make:aggregate Order Billing   # aggregate root + repository contract
+php artisan make:value-object Money Billing [--int]
+php artisan make:domain-event OrderShipped Billing
+php artisan make:command-handler ShipOrder Billing   # Command + Handler pair
+php artisan make:query-handler FindOrderById Billing # Query + Handler pair
+php artisan bus:cache   # warm the handler map for production (also runs via "php artisan optimize")
+php artisan bus:clear   # clear it
+```
+
+## Quality Tooling
+
+```bash
+composer test              # Pest: Unit, Feature, and Architecture suites
+composer test:coverage     # same, with a coverage gate
+composer lint               # Laravel Pint
+composer analyse            # PHPStan (Larastan)
+composer refactor           # Rector
+composer mutate              # Pest mutation testing (Domain and Application)
+composer check               # lint --test, analyse, refactor --dry-run, test — what CI runs
+```
+
+CI (`.github/workflows/laravel.yml`) runs all of the above across a PHP 8.4/8.5 matrix on every push and pull request.
 
 This architecture not only segregates the responsibilities into clear, well-defined areas but also promotes a high degree of modularity and replaceability of components.
 
