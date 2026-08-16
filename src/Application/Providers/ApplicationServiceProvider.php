@@ -20,12 +20,12 @@ class ApplicationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(HandlerRegistry::class, fn (): HandlerRegistry => new HandlerRegistry(
+        $this->app->singleton(HandlerRegistry::class, fn(): HandlerRegistry => new HandlerRegistry(
             sourcePath: base_path('src'),
             cacheFile: base_path('bootstrap/cache/handlers.php'),
         ));
 
-        $this->app->singleton(CommandBusContract::class, fn (Container $app): IlluminateCommandBus => new IlluminateCommandBus(
+        $this->app->singleton(CommandBusContract::class, fn(Container $app): IlluminateCommandBus => new IlluminateCommandBus(
             container: $app,
             registry: $app->make(HandlerRegistry::class),
             middleware: [
@@ -36,7 +36,7 @@ class ApplicationServiceProvider extends ServiceProvider
             ],
         ));
 
-        $this->app->singleton(QueryBusContract::class, fn (Container $app): IlluminateQueryBus => new IlluminateQueryBus(
+        $this->app->singleton(QueryBusContract::class, fn(Container $app): IlluminateQueryBus => new IlluminateQueryBus(
             container: $app,
             registry: $app->make(HandlerRegistry::class),
             middleware: [

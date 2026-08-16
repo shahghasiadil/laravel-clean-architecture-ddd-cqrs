@@ -9,11 +9,6 @@ abstract class AggregateRoot
     /** @var list<DomainEvent> */
     private array $recordedEvents = [];
 
-    protected function recordThat(DomainEvent $event): void
-    {
-        $this->recordedEvents[] = $event;
-    }
-
     /**
      * @return list<DomainEvent>
      */
@@ -23,5 +18,10 @@ abstract class AggregateRoot
         $this->recordedEvents = [];
 
         return $events;
+    }
+
+    protected function recordThat(DomainEvent $event): void
+    {
+        $this->recordedEvents[] = $event;
     }
 }

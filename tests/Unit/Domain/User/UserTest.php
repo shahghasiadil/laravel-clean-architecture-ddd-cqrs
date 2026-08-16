@@ -24,7 +24,7 @@ it('is Active by default when registered', function (): void {
 
 it('has no id until one is assigned', function (): void {
     expect($this->user->hasId())->toBeFalse();
-    expect(fn () => $this->user->id())->toThrow(LogicException::class);
+    expect(fn() => $this->user->id())->toThrow(LogicException::class);
 });
 
 it('records a UserRegistered event only once an id is assigned', function (): void {
@@ -42,7 +42,7 @@ it('records a UserRegistered event only once an id is assigned', function (): vo
 it('refuses to reassign an id', function (): void {
     $this->user->assignId(new UserId(1));
 
-    expect(fn () => $this->user->assignId(new UserId(2)))->toThrow(LogicException::class);
+    expect(fn() => $this->user->assignId(new UserId(2)))->toThrow(LogicException::class);
 });
 
 it('renames and changes email, password, and status', function (): void {

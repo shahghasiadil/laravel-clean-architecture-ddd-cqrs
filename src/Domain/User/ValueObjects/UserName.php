@@ -13,7 +13,7 @@ final class UserName extends StringValueObject
 
     protected function guard(string $value): void
     {
-        if (mb_strlen(trim($value)) < self::MIN_LENGTH) {
+        if (mb_strlen(mb_trim($value)) < self::MIN_LENGTH) {
             throw new InvalidValueObjectException('A user name must be at least ' . self::MIN_LENGTH . ' characters long.');
         }
     }

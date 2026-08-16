@@ -25,14 +25,13 @@ uses(Tests\TestCase::class);
  */
 final class InMemoryUserRepository implements UserRepositoryContract
 {
-    private int $nextId = 1;
-
     /** @var array<int, User> */
     public array $saved = [];
+    private int $nextId = 1;
 
     public function save(User $user): void
     {
-        if (! $user->hasId()) {
+        if ( ! $user->hasId()) {
             $user->assignId(new UserId($this->nextId++));
         }
 
@@ -91,6 +90,6 @@ it('refuses to register a user without a password', function (): void {
 
     $userData = new UserData('Ada Lovelace', 'ada@example.com', UserStatus::Active, new Optional());
 
-    expect(fn () => $handler->handle(new CreateUserCommand($userData)))
+    expect(fn() => $handler->handle(new CreateUserCommand($userData)))
         ->toThrow(DomainValidationException::class);
 });

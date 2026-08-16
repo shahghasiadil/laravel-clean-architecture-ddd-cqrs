@@ -11,7 +11,7 @@ final class EmailAddress extends StringValueObject
 {
     protected function guard(string $value): void
     {
-        if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
+        if (false === filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidValueObjectException("\"{$value}\" is not a valid email address.");
         }
     }

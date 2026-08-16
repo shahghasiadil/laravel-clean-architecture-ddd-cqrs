@@ -10,5 +10,5 @@ it('accepts a name of at least 3 characters', function (): void {
 });
 
 it('rejects a name shorter than 3 characters', function (): void {
-    expect(fn () => new UserName('Ad'))->toThrow(InvalidValueObjectException::class);
+    expect(fn() => new UserName('Ad'))->toThrow(InvalidValueObjectException::class);
 });

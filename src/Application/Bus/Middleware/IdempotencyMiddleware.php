@@ -26,7 +26,7 @@ final readonly class IdempotencyMiddleware
 
     public function handle(Command $command, Closure $next): mixed
     {
-        if (! $command instanceof IdempotentCommand) {
+        if ( ! $command instanceof IdempotentCommand) {
             return $next($command);
         }
 

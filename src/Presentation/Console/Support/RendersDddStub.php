@@ -20,7 +20,7 @@ trait RendersDddStub
     {
         $stubPath = base_path("stubs/ddd/{$stubName}.stub");
 
-        if (! is_file($stubPath)) {
+        if ( ! is_file($stubPath)) {
             throw new RuntimeException("Missing stub: {$stubPath}");
         }
 
@@ -38,7 +38,7 @@ trait RendersDddStub
 
         $directory = dirname($targetPath);
 
-        if (! is_dir($directory)) {
+        if ( ! is_dir($directory)) {
             mkdir($directory, 0755, true);
         }
 

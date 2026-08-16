@@ -21,6 +21,6 @@ final readonly class TransactionalMiddleware
 
     public function handle(Command $command, Closure $next): mixed
     {
-        return $this->connections->connection()->transaction(fn () => $next($command));
+        return $this->connections->connection()->transaction(fn() => $next($command));
     }
 }

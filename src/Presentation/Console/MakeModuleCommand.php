@@ -29,11 +29,11 @@ final class MakeModuleCommand extends Command
 
         $routesPath = base_path("src/Presentation/{$module}/routes/api.php");
 
-        if (! is_dir(dirname($routesPath))) {
+        if ( ! is_dir(dirname($routesPath))) {
             mkdir(dirname($routesPath), 0755, true);
         }
 
-        if (! is_file($routesPath)) {
+        if ( ! is_file($routesPath)) {
             file_put_contents($routesPath, <<<PHP
                 <?php
 

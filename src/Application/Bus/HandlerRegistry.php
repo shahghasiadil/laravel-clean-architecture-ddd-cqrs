@@ -66,7 +66,7 @@ final class HandlerRegistry
     {
         $map = $this->scan();
 
-        if ($this->cacheFile !== null) {
+        if (null !== $this->cacheFile) {
             file_put_contents(
                 $this->cacheFile,
                 '<?php' . PHP_EOL . PHP_EOL . 'return ' . var_export($map, true) . ';' . PHP_EOL,
@@ -78,7 +78,7 @@ final class HandlerRegistry
 
     public function clearCache(): void
     {
-        if ($this->cacheFile !== null && is_file($this->cacheFile)) {
+        if (null !== $this->cacheFile && is_file($this->cacheFile)) {
             unlink($this->cacheFile);
         }
 
@@ -90,11 +90,11 @@ final class HandlerRegistry
      */
     private function resolve(): array
     {
-        if ($this->map !== null) {
+        if (null !== $this->map) {
             return $this->map;
         }
 
-        if ($this->cacheFile !== null && is_file($this->cacheFile)) {
+        if (null !== $this->cacheFile && is_file($this->cacheFile)) {
             /** @var HandlerMap $cached */
             $cached = require $this->cacheFile;
 
@@ -112,14 +112,14 @@ final class HandlerRegistry
         $commands = [];
         $queries = [];
 
-        if (! is_dir($this->sourcePath)) {
+        if ( ! is_dir($this->sourcePath)) {
             return ['commands' => $commands, 'queries' => $queries];
         }
 
         foreach ((new Finder())->files()->in($this->sourcePath)->name('*.php') as $file) {
             $class = $this->classFromPath($file->getRealPath());
 
-            if ($class === null || ! class_exists($class)) {
+            if (null === $class || ! class_exists($class)) {
                 continue;
             }
 
@@ -144,12 +144,12 @@ final class HandlerRegistry
         foreach (self::NAMESPACE_ROOTS as $namespace => $directory) {
             $needle = '/' . $directory . '/';
 
-            if (! str_contains($path, $needle)) {
+            if ( ! str_contains($path, $needle)) {
                 continue;
             }
 
-            $relative = substr($path, strpos($path, $needle) + strlen($needle));
-            $relative = substr($relative, 0, -4); // strip ".php"
+            $relative = mb_substr($path, mb_strpos($path, $needle) + mb_strlen($needle));
+            $relative = mb_substr($relative, 0, -4); // strip ".php"
 
             return $namespace . '\\' . str_replace('/', '\\', $relative);
         }

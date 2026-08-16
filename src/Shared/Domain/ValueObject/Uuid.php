@@ -16,7 +16,7 @@ class Uuid extends StringValueObject
 
     protected function guard(string $value): void
     {
-        if (! RamseyUuid::isValid($value)) {
+        if ( ! RamseyUuid::isValid($value)) {
             throw new InvalidValueObjectException("\"{$value}\" is not a valid UUID.");
         }
     }

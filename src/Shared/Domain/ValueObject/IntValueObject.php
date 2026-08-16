@@ -12,15 +12,15 @@ abstract class IntValueObject implements ValueObject
         $this->guard($value);
     }
 
-    protected function guard(int $value): void {}
+    public function __toString(): string
+    {
+        return (string) $this->value;
+    }
 
     public function equals(ValueObject $other): bool
     {
         return $other instanceof static && $other->value === $this->value;
     }
 
-    public function __toString(): string
-    {
-        return (string) $this->value;
-    }
+    protected function guard(int $value): void {}
 }

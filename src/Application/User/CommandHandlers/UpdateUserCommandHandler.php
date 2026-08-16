@@ -33,7 +33,7 @@ final readonly class UpdateUserCommandHandler implements CommandHandler
         $user->changeEmail(new EmailAddress($data->email));
         $user->changeStatus($data->status);
 
-        if (! $data->password instanceof Optional) {
+        if ( ! $data->password instanceof Optional) {
             $user->changePassword(new HashedPassword(Hash::make($data->password)));
         }
 

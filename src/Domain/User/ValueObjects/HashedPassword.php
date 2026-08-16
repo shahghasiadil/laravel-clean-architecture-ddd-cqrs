@@ -16,7 +16,7 @@ final class HashedPassword extends StringValueObject
 {
     protected function guard(string $value): void
     {
-        if ($value === '') {
+        if ('' === $value) {
             throw new InvalidValueObjectException('A hashed password cannot be empty.');
         }
     }

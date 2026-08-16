@@ -53,7 +53,7 @@ final class UserRepository implements UserRepositoryContract
 
         return new Paginated(
             items: array_map(
-                fn (UserModel $model): User => $this->mapper->toDomain($model),
+                fn(UserModel $model): User => $this->mapper->toDomain($model),
                 $paginator->items(),
             ),
             total: $paginator->total(),
@@ -64,7 +64,7 @@ final class UserRepository implements UserRepositoryContract
 
     private function modelFor(User $user): UserModel
     {
-        if (! $user->hasId()) {
+        if ( ! $user->hasId()) {
             return new UserModel();
         }
 
